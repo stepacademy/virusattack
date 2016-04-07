@@ -18,7 +18,6 @@ public class Base : MonoBehaviour {
 		curHP -= adjust;
 	}
 
-	// Update is called once per frame
 	void Update () {
 		gameObject.GetComponent<Renderer>().material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP/maxHP);
 		if (curHP <= 0)

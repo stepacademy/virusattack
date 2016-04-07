@@ -21,6 +21,7 @@ public class GlobalVars : MonoBehaviour {
 	{
 		TowerSmall,
 		TowerMedium,
+		TowerWall,
 		None
 	}
 

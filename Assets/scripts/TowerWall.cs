@@ -1,14 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class TowerMedium : Tower {
+public class TowerWall : Tower {
 
-	public static float towerPrice = 150;
-
+	public static float towerPrice = 70;
+	
 	override public void Awake(){
-		maxHP = 50;
+		maxHP = 100;
 		curHP = maxHP;
-		MinDamageColor = Color.gray;
+		MinDamageColor = Color.magenta;
 		MaxDamageColor = Color.red;
 		defender = true;
 		GlobalVars.TowerList.Add(gameObject);

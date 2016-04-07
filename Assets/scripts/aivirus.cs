@@ -10,21 +10,21 @@ public class aivirus : MonoBehaviour {
     public float mobAtack = 1.0f;
     public float damage = 5;
     public float attackTimer = 0.0f;
-    public const float coolDown = 2.0f; 
+    public float coolDown = 2.0f; 
 
-    private float MobCurrentSpeed; 
-    private Transform mob; 
+    public float MobCurrentSpeed; 
+    public Transform mob; 
 
-    private void Start()
+    public virtual void Start()
     {
         mob = transform;
         MobCurrentSpeed = mobSpeed;
-		//Target = GlobalVars.Basis;
     }
 
-    // Update is called once per frame
-    void Update () {
-		if ((target == null && GlobalVars.Basis != null) || GlobalVars.AddTower)
+	public void Update () {
+		if (GlobalVars.Basis == null)
+			Destroy (gameObject);
+		if ((target == null) || GlobalVars.AddTower)
         {
 			target = SearchTarget();
         }
@@ -42,7 +42,7 @@ public class aivirus : MonoBehaviour {
 						thp.ChangeHP (damage);
 					else
 					{
-						TowerMedium tm = target.GetComponent<TowerMedium>();
+						Tower tm = target.GetComponent<Tower>();
 						if (tm != null)
 							tm.ChangeHP (damage);
 					}
@@ -54,20 +54,20 @@ public class aivirus : MonoBehaviour {
 		}
 		else
 			Debug.Log("Base null");
-			//Target = GlobalVars.Basis;
-        //if (GlobalVars.AddTower)
-			//GlobalVars.AddTower = false;
     }
 
-    private GameObject SearchTarget()
+	public GameObject SearchTarget()
     {
         float closestTowerDistance = 0; 
         GameObject nearestTower = null; 
 		List<GameObject> sortingTowers = GlobalVars.TowerList;
-		GameObject basis = GlobalVars.Basis.gameObject;
+		GameObject basis = null;
+		if(GlobalVars.Basis != null)
+			basis = GlobalVars.Basis.gameObject;
+		if (basis == null)
+			return null;
 		foreach (var targetEstimated in sortingTowers) 
         {
-			//Tower t = targetEstimated.GetComponent<Tower>();
 			if(targetEstimated.GetComponent<Tower>().defender)
 				if ((Vector3.Distance(mob.position, targetEstimated.transform.position) < closestTowerDistance) || closestTowerDistance == 0)
             {
@@ -83,4 +83,9 @@ public class aivirus : MonoBehaviour {
 		else
 		return nearestTower;
     }
+
+	public void OnDestroy(){
+		GlobalVars.MobList.Remove(gameObject);
+		GlobalVars.MobCount--;
+	}
 }

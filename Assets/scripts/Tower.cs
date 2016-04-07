@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Tower : MonoBehaviour {
 
-	public float towerPrice;
 	public float maxHP; 
 	public float curHP;
 	public Color MaxDamageColor;
 	public Color MinDamageColor;
 	public bool defender = true;
+	public Platform plt;
 
-	virtual public void Start()
+	virtual public void Awake()
 	{
 		GlobalVars.TowerList.Add(gameObject);
 		++GlobalVars.TurretCount;
@@ -37,5 +37,6 @@ public class Tower : MonoBehaviour {
 	{
 		GlobalVars.TowerList.Remove(gameObject);
 		GlobalVars.TurretCount--;
+		plt.checkTower = false;
 	}
 }

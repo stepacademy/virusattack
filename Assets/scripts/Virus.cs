@@ -1,17 +1,21 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Virus : MonoBehaviour {
 
-    public float maxHP = 100; 
-    public float curHP = 100; 
-    public Color MaxDamageColor = Color.red; 
-    public Color MinDamageColor = Color.blue; 
-    private void Awake()
+    public float maxHP; 
+    public float curHP; 
+    public Color MaxDamageColor; 
+    public Color MinDamageColor; 
+
+    public virtual void Start()
     {
+		maxHP = 100; 
+		curHP = maxHP; 
+		MaxDamageColor = Color.red; 
+		MinDamageColor = Color.blue; 
 		GlobalVars.MobList.Add(gameObject); 
 		GlobalVars.MobCount++; 
-        if (maxHP < 1) maxHP = 1;
     }
 
     public void ChangeHP(float adjust) 
@@ -19,7 +23,7 @@ public class Virus : MonoBehaviour {
 		curHP -= adjust;
     }
 
-    private void Update()
+    public void Update()
     {
 		gameObject.GetComponent<Renderer>().material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP/maxHP);
         //gameObject.renderer.material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP / maxHP); //Лерпим цвет моба по заданным в начале цветам. В примере: красный - моб почти полностью убит, синий - целый.
@@ -31,7 +35,7 @@ public class Virus : MonoBehaviour {
         }
     }
 
-    private void OnDestroy(){
+	public void OnDestroy(){
 		GlobalVars.MobList.Remove(gameObject);
 		GlobalVars.MobCount--;
     }

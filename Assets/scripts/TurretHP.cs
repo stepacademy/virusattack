@@ -7,11 +7,9 @@ public class TurretHP : MonoBehaviour {
     public float curHP = 100; 
 	public Color MaxDamageColor = Color.red; 
 	public Color MinDamageColor = Color.green;
-    //private GlobalVars gv;
 
     private void Awake()
     {
-		//GlobalVars = GameObject.Find("GlobalVars").GetComponent<GlobalVars>(); 
         GlobalVars.TowerList.Add(gameObject);
 		GlobalVars.TurretCount++;
         if (maxHP < 1) maxHP = 1;

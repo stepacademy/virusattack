@@ -3,10 +3,9 @@ using System.Collections;
 
 public class TowerSmall : Tower {
 
-	// Use this for initialization
-	override public void Start () {
-	
-		towerPrice = 100;
+	public static float towerPrice = 120;
+
+		override public void Awake () {
 		maxHP = 100;
 		curHP = maxHP;
 		MinDamageColor = Color.yellow;

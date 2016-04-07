@@ -6,17 +6,15 @@ using System.Linq;
 public class aigun : MonoBehaviour {
 
 	public GameObject curTarget;
-	public float towerPrice = 100.0f;
-    public float attackDamage = 35.0f;
-    public float reloadTimer = 2.5f;
-    public float reloadCooldown = 2.5f;
+	public float attackDamage;
+    public float reloadTimer;
+    public float reloadCooldown;
     public Transform turretHead;
 
     virtual public void Start () {
 		turretHead = this.transform;
     }
 	
-	// Update is called once per frame
 	void Update () {
         if (curTarget != null) 
         {
@@ -42,7 +40,7 @@ public class aigun : MonoBehaviour {
     {
         float closestMobDistance = 0; 
         GameObject nearestmob = null; 
-        List<GameObject> sortingMobs = GameObject.FindGameObjectsWithTag("VirusTag").ToList(); 
+		List<GameObject> sortingMobs = GlobalVars.MobList;
         foreach (var everyTarget in sortingMobs)
         {
 			if ((Vector3.Distance(everyTarget.transform.position, turretHead.position) < closestMobDistance) || closestMobDistance == 0)
