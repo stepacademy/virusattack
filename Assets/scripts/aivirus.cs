@@ -9,7 +9,7 @@ public class aivirus : MonoBehaviour {
     public float mobSpeed = 1.0f;
     public float mobAtack = 1.0f;
     public float damage = 5;
-    public float attackTimer = 0.0f;
+   	public float attackTimer = 0.0f;
     public float coolDown = 2.0f; 
 
     public float MobCurrentSpeed; 

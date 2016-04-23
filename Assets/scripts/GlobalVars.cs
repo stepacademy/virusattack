@@ -13,7 +13,7 @@ public class GlobalVars : MonoBehaviour {
     public static int TurretCount = 0;
 	public static bool AddTower = false;
 
-    public static float PlayerMoney = 200.0f;
+    public static float PlayerMoney = 200000.0f;
 
 	public static ClickState towerSelected = ClickState.None; 
 	

@@ -20,9 +20,10 @@ public class Base : MonoBehaviour {
 
 	void Update () {
 		gameObject.GetComponent<Renderer>().material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP/maxHP);
-		if (curHP <= 0)
+		if (curHP < 0)
 		{
 			Destroy(gameObject);
+			curHP = 0;//для того чтобы на индикаторе жизней не было отрицательного числа
 		}
 	}
 
