@@ -21,11 +21,11 @@ public class Tower : MonoBehaviour {
 
 	public void Update()
 	{
-		gameObject.GetComponent<Renderer>().material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP/maxHP);
-		if (curHP <= 0)
-		{
-			Destroy(gameObject);
-		}
+		//gameObject.GetComponent<Renderer>().material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP/maxHP);
+		//if (curHP <= 0)
+		//{
+		//	Destroy(gameObject);
+		//}
 	}
 
 	public void ChangeHP(float adjust)
@@ -37,6 +37,6 @@ public class Tower : MonoBehaviour {
 	{
 		GlobalVars.TowerList.Remove(gameObject);
 		GlobalVars.TurretCount--;
-		plt.checkTower = false;
+	    //plt.checkTower = false;
 	}
 }
