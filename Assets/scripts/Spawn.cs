@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Spawn : MonoBehaviour {
 
-	public int waveAmount; 
-	public int waveNumber; 
-	public float waveDelayTimer;
-	public float waveCooldown;
-	public int maximumWaves; 
+	public int waveAmount = 5; 
+	public int waveNumber = 0; 
+	public float waveDelayTimer = 30.0F;
+	public float waveCooldown = 20.0F;
+	public int maximumWaves = 5; 
 	public Transform Mob; 
 
 	private void Update()

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TowerSmall : Tower {
-	
+
 	public static float towerPrice = 120;
 
 		override public void Awake () {

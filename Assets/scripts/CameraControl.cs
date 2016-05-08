@@ -12,7 +12,7 @@ public class CameraControl : MonoBehaviour {
 	
 	private void Awake()
 	{
-		//transform.position = new Vector3(DefaultCameraPosX, DefaultCameraPosY, DefaultCameraPosZ);
+		transform.position = new Vector3(DefaultCameraPosX, DefaultCameraPosY, DefaultCameraPosZ);
 	}
 	
 	private void Update()

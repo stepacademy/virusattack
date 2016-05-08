@@ -11,11 +11,13 @@ public class aigun : MonoBehaviour {
     public float reloadCooldown;
     public Transform turretHead;
 
+	public float closestMobDistance = 0; 
+
     virtual public void Start () {
 		turretHead = this.transform;
     }
 	
-	void Update () {
+	virtual public void Update () {
         if (curTarget != null) 
         {
             if (reloadTimer > 0) reloadTimer -= Time.deltaTime; 
@@ -36,9 +38,8 @@ public class aigun : MonoBehaviour {
 
     }
 
-	public GameObject SortTargets()
+	virtual public GameObject SortTargets()
     {
-        float closestMobDistance = 0; 
         GameObject nearestmob = null; 
 		List<GameObject> sortingMobs = GlobalVars.MobList;
         foreach (var everyTarget in sortingMobs)

@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.EventSystems;
 
-public class Platform : MonoBehaviour, IDropHandler {
+public class Platform : MonoBehaviour {
 
 	public bool checkTower;
 
-	#region IDropHandler implementation
-	public void OnDrop (PointerEventData eventData)
-	{
+	void Start () {
+		checkTower = false;
+		gameObject.GetComponent<Renderer> ().material.color = Color.black;
 
 	}
-	#endregion
+
 }

@@ -8,6 +8,7 @@ public class AiTowerSmall : aigun {
 		attackDamage = 35.0f;
 		reloadTimer = 2.5f;
 		reloadCooldown = 2.5f;
+		closestMobDistance = 0f;
 	}
 
 }
