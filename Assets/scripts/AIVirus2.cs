@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AIVirus2 : aivirus {
+public class AiVirus2 : AiVirus {
 
 	public override void Start () {
 		mobPrice = 5.0f;

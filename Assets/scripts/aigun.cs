@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class aigun : MonoBehaviour {
+public class AiGun : MonoBehaviour {
 
 	public GameObject curTarget;
 	public float attackDamage;

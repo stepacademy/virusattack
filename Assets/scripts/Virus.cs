@@ -29,7 +29,7 @@ public class Virus : MonoBehaviour {
         //gameObject.renderer.material.color = Color.Lerp(MaxDamageColor, MinDamageColor, curHP / maxHP); //Лерпим цвет моба по заданным в начале цветам. В примере: красный - моб почти полностью убит, синий - целый.
         if (curHP <= 0)
         {
-            aivirus mai = gameObject.GetComponent<aivirus>();
+            AiVirus mai = gameObject.GetComponent<AiVirus>();
 			if (mai != null) GlobalVars.PlayerMoney += mai.mobPrice;
             Destroy(gameObject);
         }

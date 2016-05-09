@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AiTowerMedium : aigun {
+public class AiTowerMedium : AiGun {
 
 	override public void Start () {
 		turretHead = this.transform;

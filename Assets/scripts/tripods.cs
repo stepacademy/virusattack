@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class tripods: MonoBehaviour {
+public class Tripods: MonoBehaviour {
 
 	public GameObject target;
 	public float mobPrice = 5.0f;

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ButtenDefenders : MonoBehaviour {
+public class ButtonDefenders : MonoBehaviour {
 
 	private void Update()
 	{

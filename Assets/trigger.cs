@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class trigger : MonoBehaviour {
+public class Trigger : MonoBehaviour {
 
     public GameObject target;
 

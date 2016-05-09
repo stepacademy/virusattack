@@ -24,7 +24,7 @@ public class Spawn : MonoBehaviour {
 			if (waveDelayTimer <= 0) {
 				if (waveNumber < maximumWaves) {
 					for (int i = 0; i < waveAmount; i++) {
-						Instantiate (Mob, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+                        Instantiate(Mob, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
 					}
 					
 					if (waveCooldown > 5.0f) {
