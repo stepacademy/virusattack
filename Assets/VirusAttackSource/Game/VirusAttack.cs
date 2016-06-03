@@ -1,5 +1,5 @@
-﻿using VirusAttackSource.AMVCC;
-
+﻿using UnityEngine;
+using VirusAttackSource.AMVCC;
 
 namespace VirusAttackSource.Game {
 
@@ -7,6 +7,7 @@ namespace VirusAttackSource.Game {
     using Views;
     using Controllers;
 
+    [AddComponentMenu("Virus-Attack Source/VirusAttack")]
     public sealed class VirusAttack : BaseApplication<GameModel, GameView, GameController> {
 
         // Use Start() from .base
@@ -15,4 +16,5 @@ namespace VirusAttackSource.Game {
         private void Update() { }
 
     }
+
 }

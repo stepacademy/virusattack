@@ -1,9 +1,13 @@
-﻿using VirusAttackSource.AMVCC;
+﻿using UnityEngine;
+using VirusAttackSource.AMVCC;
 
 
 namespace VirusAttackSource.Game.Models.Unit {
 
+    [AddComponentMenu("Virus-Attack Source/Models/Unit/UnitModel")]
     public sealed class UnitModel : Model<VirusAttack> {
+
+        private GameObject unitPrefab;
 
         public enum Type { Ally, Enemy }
 
@@ -12,13 +16,13 @@ namespace VirusAttackSource.Game.Models.Unit {
         private float  _damage;
         private float  _attackSpeed;
 
-        //private IAttackStrategy _attackStrategy;
-
         public Type    UnitType;
 
-        private void Start() { }
+        private void Start() {
+
+        }
         private void Update() {
-            //_attackStrategy.Attack(_damage, _attackSpeed);
+            app.view.Unit.OnAttack();
         }
     }
 }

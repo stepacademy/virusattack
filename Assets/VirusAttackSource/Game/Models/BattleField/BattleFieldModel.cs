@@ -4,15 +4,16 @@ using VirusAttackSource.AMVCC;
 
 namespace VirusAttackSource.Game.Models.BattleField {
 
+    [AddComponentMenu("Virus-Attack Source/Models/BattleField/BattleFieldModel")]
     public class BattleFieldModel : Model<VirusAttack> {
 
         private float _sizeX, _sizeY, _sizeZ;
         private GameObject[,] platforms;
 
-        public GameObject platformPrefab;
-        public int countX;
-        public int countZ;
-        public bool setPositionAtWorldCenter;
+        [SerializeField] private GameObject platformPrefab;
+        [SerializeField] private int countX;
+        [SerializeField] private int countZ;
+        [SerializeField] public bool setPositionAtWorldCenter;
 
         private void SetPositionAtWorldCenter() {
 
@@ -51,6 +52,5 @@ namespace VirusAttackSource.Game.Models.BattleField {
         private void Start() {
             Generate();
         }
-
     }
 }

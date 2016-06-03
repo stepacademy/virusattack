@@ -191,20 +191,20 @@ namespace VirusAttackSource.AMVCC {
         /// Notifies all application's controllers informing who's the 'target'.
         /// </summary>
         public void Notify(string p_event, Object p_target) {
-            Notify(p_event, p_target,new object[]{});
+            Notify(p_event, p_target, new object[]{});
         }
 
         /// <summary>
         /// Notifies all application's controllers informing who's the 'target' after 'delay' in seconds and passing some 'data'.
         /// </summary>
-        public void Notify(float p_delay,string p_event, Object p_target,params object[] p_data) {            
-            StartCoroutine(TimedNotify(p_delay,p_event,p_target,p_data));
+        public void Notify(float p_delay, string p_event, Object p_target, params object[] p_data) {            
+            StartCoroutine(TimedNotify(p_delay, p_event, p_target, p_data));
         }
 
         /// <summary>
         /// Internal Notify to help timed notifications.
         /// </summary>
-        private IEnumerator TimedNotify(float p_delay, string p_event, Object p_target,params object[] p_data) {
+        private IEnumerator TimedNotify(float p_delay, string p_event, Object p_target, params object[] p_data) {
             yield return new WaitForSeconds(p_delay);
             Notify(p_event, p_target, p_data);
         }
@@ -230,17 +230,17 @@ namespace VirusAttackSource.AMVCC {
         /// <summary>
         /// Adds a new scene.
         /// </summary>
-        public void SceneAdd(string p_name,params string[] p_args) {
+        public void SceneAdd(string p_name, params string[] p_args) {
             SceneAdd(p_name, false, p_args);
         }
 
         /// <summary>
         /// Loads a new scene by name. A flag indicating if the load must be async can be informed.
         /// </summary>
-        public void SceneLoad(string p_name,bool p_async,params string[] p_args) {
+        public void SceneLoad(string p_name, bool p_async, params string[] p_args) {
 
             if (p_async) {
-                StartCoroutine(SceneLoadAsync(p_name,false,p_args));
+                StartCoroutine(SceneLoadAsync(p_name, false, p_args));
             }
             else {
                 __args = new List<string>(p_args);
@@ -255,14 +255,14 @@ namespace VirusAttackSource.AMVCC {
         /// <summary>
         /// Loads a new scene by name.
         /// </summary>
-        public void SceneLoad(string p_name,params string[] p_args) {
+        public void SceneLoad(string p_name, params string[] p_args) {
             SceneLoad(p_name, false, p_args);
         }
 
         /// <summary>
         /// Internal method for async load level.
         /// </summary>
-        private IEnumerator SceneLoadAsync(string p_name,bool p_additive,params string[] p_args) {
+        private IEnumerator SceneLoadAsync(string p_name, bool p_additive, params string[] p_args) {
 
             //float p = 0f;
             UnityEngine.AsyncOperation async = null;
@@ -271,7 +271,7 @@ namespace VirusAttackSource.AMVCC {
             if(p_additive) {
                 ev    = "scene.add.progress";
                 #if UNITY_5_3_OR_NEWER
-                async = SceneManager.LoadSceneAsync(p_name,LoadSceneMode.Additive);
+                async = SceneManager.LoadSceneAsync(p_name, LoadSceneMode.Additive);
                 #else
                 async = Application.LoadLevelAdditiveAsync(p_name);
                 #endif
@@ -279,7 +279,7 @@ namespace VirusAttackSource.AMVCC {
             else {
                 ev    = "scene.load.progress";
                 #if UNITY_5_3_OR_NEWER
-                async = SceneManager.LoadSceneAsync(p_name,LoadSceneMode.Single);
+                async = SceneManager.LoadSceneAsync(p_name, LoadSceneMode.Single);
                 #else
                 async = Application.LoadLevelAsync(p_name);
                 #endif                
