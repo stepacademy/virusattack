@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 94baea83d15dc1343bb1c77672b8c34a
-timeCreated: 1464490160
+timeCreated: 1465058122
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - macrofagPrefab: {fileID: 183582, guid: 56d05ee889eb4034e8f54fe6d89a462a, type: 2}
+  - platformPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
