@@ -9,7 +9,7 @@ namespace Assets.VirusAttackSource.Game.Models {
     using UnitsSpawner;
     using Utilities;
 
-    [AddComponentMenu("Virus-Attack Source/Models/GameModel")]
+    [AddComponentMenu("Virus-Attack Source/GameModel")]
     public sealed class LevelModel : Model<VirusAttack> {
 
         private BattleFieldModel _battleField;

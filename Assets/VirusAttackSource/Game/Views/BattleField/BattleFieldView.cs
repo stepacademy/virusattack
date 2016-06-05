@@ -4,7 +4,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Views.BattleField {
 
-    [AddComponentMenu("Virus-Attack Source/Views/BattleField/BattleFieldView")]
+    [AddComponentMenu("Virus-Attack Source/BattleField/BattleFieldView")]
     public sealed class BattleFieldView : View<VirusAttack> {
 
         public void OnBattleFieldGenerated() {

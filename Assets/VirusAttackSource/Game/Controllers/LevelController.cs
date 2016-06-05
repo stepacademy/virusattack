@@ -7,7 +7,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
 
     using BattleField;
 
-    [AddComponentMenu("Virus-Attack Source/Controllers/GameController")]
+    [AddComponentMenu("Virus-Attack Source/GameController")]
     public sealed class LevelController : Controller<VirusAttack> {
 
         private BattleFieldController _battleField;

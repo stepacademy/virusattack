@@ -4,72 +4,87 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
-    [AddComponentMenu("Virus-Attack Source/Models/BattleField/BattleFieldModel")]
+    [AddComponentMenu("Virus-Attack Source/BattleField/BattleFieldModel")]
     public class BattleFieldModel : Model<VirusAttack> {
 
-        private float _sizeX, _sizeY, _sizeZ;
+        private float _sizeX, _sizeZ;
 
-        private GameObject[,] _platforms;
-        private GameObject    _macrofag;
+        private GameObject[,] _platformsGround;
+        private GameObject[,] _platformsWall;
+        private GameObject[]  _macrofags;
         
-        public int        CountX = 5;
-        public int        CountZ = 12;
+        public int       CountX = 5;
+        public int       CountZ = 12;
         [SerializeField] private bool       _setPositionAtWorldCenter = true;
 
-        [SerializeField] private GameObject _platformPrefab = null;
-        [SerializeField] private GameObject _macrofagPrefab = null;
+        [SerializeField] private GameObject _platformGroundPrefab = null;
+        [SerializeField] private GameObject _platformWallPrefab   = null;
+        [SerializeField] private GameObject _defendersWallPrefab  = null;
 
         private void SetPositionAtWorldCenter() {
 
-            _sizeX =  _platformPrefab.transform.localScale.x * CountX;
-            _sizeY =  _platformPrefab.transform.localScale.y;
-            _sizeZ = -_platformPrefab.transform.localScale.z * CountZ;
+            _sizeX =  _platformGroundPrefab.transform.localScale.x * CountX;
+            _sizeZ =  _platformGroundPrefab.transform.localScale.z * CountZ;
 
-            transform.position = new Vector3(_sizeX * -0.5f, _sizeY * -0.5f, _sizeZ * -0.5f);
+            transform.position = new Vector3(_sizeX * -0.5f, 0, _sizeZ * 0.5f);
+        }
+
+        private Vector3 GetNewPlatformPosition(GameObject platformPrefab, int platformNumberX, int platformNumberZ) {
+
+            return new Vector3(
+                platformPrefab.transform.localScale.x *  platformNumberX + platformPrefab.transform.localScale.x * 0.5f,
+                platformPrefab.transform.localScale.y * 0.5f,
+                platformPrefab.transform.localScale.z * -platformNumberZ - platformPrefab.transform.localScale.z * 0.5f
+                );
+        }
+
+        private GameObject InstantiateActual(string platformPrefabTag, int platformNumberX, int platformNumberZ) {
+
+            GameObject currentPrefab = platformPrefabTag == "Ground" ? _platformGroundPrefab : _platformWallPrefab;
+
+            return Instantiate(currentPrefab,
+                GetNewPlatformPosition(currentPrefab, platformNumberX, platformNumberZ),
+                Quaternion.identity) as GameObject;
         }
 
         internal void Generate() {
 
-            _platforms = new GameObject[CountX, CountZ];
+            _platformsGround = new GameObject[CountX - 2, CountZ];
+            _platformsWall = new GameObject[2, CountZ];
+            _macrofags = new GameObject[CountX];
 
             for (int z = 0; z < CountZ; z++) {
                 for (int x = 0; x < CountX; x++) {
 
-                    _platforms[x, z] = Instantiate(
-                        _platformPrefab,
-                        new Vector3(
-                            _platformPrefab.transform.localScale.x *  x + _platformPrefab.transform.localScale.x * 0.5f,
-                            _platformPrefab.transform.localScale.y *  0.5f,
-                            _platformPrefab.transform.localScale.z * -z - _platformPrefab.transform.localScale.z * 0.5f
-                            ),
-                        Quaternion.identity) as GameObject;
+                    GameObject currentPlatform;
+                    string     currentTag;
 
-                    //PlatformModel pm = _platforms[x, z].GetComponent<PlatformModel>();
-                    //pm.PosXInGrid = (uint)x;
-                    //pm.PosZInGrid = (uint)z;
+                    if (x == 0 || x == CountX - 1) {
+                        currentTag = "Wall";
+                        currentPlatform = _platformsWall[x == 0 ? 0 : 1, z] = InstantiateActual(currentTag, x, z);                        
+                    }
+                    else {
+                        currentTag = "Ground";
+                        currentPlatform = _platformsGround[x - 1, z] = InstantiateActual(currentTag, x, z);
+                    }
 
-                    _platforms[x, z].transform.SetParent(transform, true);
-
-                    if (x == 0 || x == CountX - 1)
-                        _platforms[x, z].tag = "Wall";
-                    else
-                        _platforms[x, z].tag = "Ground";
-
-                    _platforms[x, z].name = new StringBuilder("Platform")
+                    currentPlatform.transform.SetParent(transform, true);
+                    currentPlatform.tag = currentTag;
+                    currentPlatform.name = new StringBuilder("Platform")
                         .Append(" | z:").Append(z).Append(" | x:").Append(x)
-                        .Append(" | tag:").Append(_platforms[x, z].tag).ToString();
+                        .Append(" | tag:").Append(currentPlatform.tag).ToString();
 
-                    if (z == 0) {
-                        _macrofag = Instantiate(_macrofagPrefab,
+                    if (z == 0 && x != 0 && x != CountX - 1) {
+                        _macrofags[x] = Instantiate(_defendersWallPrefab,
                             new Vector3(
-                                _platforms[x, z].transform.position.x,
-                                _platforms[x, z].transform.position.y + 0.5f,
-                                _platforms[x, z].transform.position.z),
+                                currentPlatform.transform.position.x,
+                                currentPlatform.transform.localScale.y + _defendersWallPrefab.transform.localScale.y,
+                                currentPlatform.transform.position.z),
                             Quaternion.identity) as GameObject;
 
-                        _macrofag.transform.SetParent(_platforms[x, z].transform, true);
+                        _macrofags[x].transform.SetParent(currentPlatform.transform, true);
 
-                    }                    
+                    }
                 }
             }
 

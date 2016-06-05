@@ -6,8 +6,8 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
     public enum UnitType { Ally, Enemy }
 
-    [AddComponentMenu("Virus-Attack Source/Models/Unit/UnitModel")]
-    public sealed class UnitModel : Model<VirusAttack> {
+    [AddComponentMenu("Virus-Attack Source/Unit/UnitModel")]
+    public sealed class UnitModel : Model<VirusAttack> {             // HARDCODE CLASS
 
         private GameObject unitPrefab;        
 
@@ -22,7 +22,12 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
         }
         private void Update() {
+            if (
+                transform.position.z > 12.0f) {
+                Destroy(gameObject);
+            }
             transform.Translate(0, 0, 1 * Time.deltaTime);
+
         }
     }
 }

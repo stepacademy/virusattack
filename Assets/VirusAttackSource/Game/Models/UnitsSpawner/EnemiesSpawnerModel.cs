@@ -7,6 +7,7 @@ namespace Assets.VirusAttackSource.Game.Models.UnitsSpawner {
 
     using Utilities;
 
+    [AddComponentMenu("Virus-Attack Source/EnemySpawner/EnemySpawnerModel")]
     public sealed class EnemiesSpawnerModel : Model<VirusAttack> {
 
         private float lastSpawnTime;
@@ -18,7 +19,7 @@ namespace Assets.VirusAttackSource.Game.Models.UnitsSpawner {
 
         private void RemoveAllEmpty() {
 
-            LevelAlliesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
+            LevelAlliesTypes.RemoveAll (x => x.Prefab == null || x.Count == 0);
             LevelEnemiesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
 
         }
@@ -30,7 +31,7 @@ namespace Assets.VirusAttackSource.Game.Models.UnitsSpawner {
                 int countX = app.model.BattleField.CountX;
                 int countZ = app.model.BattleField.CountZ;
 
-                int platformIndex = Random.Range(countX * countZ - countX, countX * countZ);
+                int platformIndex = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
                 Transform platform = app.model.BattleField.transform.GetChild(platformIndex);
 
                 int availableEnemyIndex = Random.Range(0, LevelEnemiesTypes.Count);
