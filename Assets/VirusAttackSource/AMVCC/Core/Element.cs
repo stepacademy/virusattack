@@ -49,7 +49,7 @@ namespace Assets.VirusAttackSource.AMVCC {
         /// Finds a instance of 'T' if 'var' is null. Returns 'var' otherwise.
         /// If 'global' is 'true' searches in all scope, otherwise, searches in childrens.
         /// </summary>
-        public T Assert<T>(T p_var, bool p_global=false) where T : Object {
+        public T Assert<T>(T p_var, bool p_global = false) where T : Object {
             return p_var == null
                 ? (p_global ? GameObject.FindObjectOfType<T>()
                 : transform.GetComponentInChildren<T>())

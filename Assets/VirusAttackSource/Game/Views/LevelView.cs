@@ -3,10 +3,10 @@ using Assets.VirusAttackSource.AMVCC;
 
 
 namespace Assets.VirusAttackSource.Game.Views {
-
+    using System;
     using BattleField;
     using Unit;
-    
+
     [AddComponentMenu("Virus-Attack Source/Views/GameView")]
     public sealed class LevelView : View<VirusAttack> {
 

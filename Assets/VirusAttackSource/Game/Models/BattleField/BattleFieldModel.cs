@@ -11,24 +11,24 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
         private GameObject[,] _platforms;
         private GameObject    _macrofag;
+        
+        [SerializeField] private int        _countX = 5;
+        [SerializeField] private int        _countZ = 12;
+        [SerializeField] private bool       _setPositionAtWorldCenter = true;
 
-        [SerializeField] private GameObject _platformPrefab;
-        [SerializeField] private int        _countX;
-        [SerializeField] private int        _countZ;
-        [SerializeField] private bool       _setPositionAtWorldCenter;
-
-        public  GameObject   macrofagPrefab;
+        [SerializeField] private GameObject _platformPrefab = null;
+        [SerializeField] private GameObject _macrofagPrefab = null;
 
         private void SetPositionAtWorldCenter() {
 
-            _sizeX = _platformPrefab.transform.localScale.x * _countX;
-            _sizeY = _platformPrefab.transform.localScale.y;
+            _sizeX =  _platformPrefab.transform.localScale.x * _countX;
+            _sizeY =  _platformPrefab.transform.localScale.y;
             _sizeZ = -_platformPrefab.transform.localScale.z * _countZ;
 
             transform.position = new Vector3(_sizeX * -0.5f, _sizeY * -0.5f, _sizeZ * -0.5f);
         }
 
-        private void Generate() {
+        internal void Generate() {
 
             _platforms = new GameObject[_countX, _countZ];
 
@@ -38,11 +38,15 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                     _platforms[x, z] = Instantiate(
                         _platformPrefab,
                         new Vector3(
-                            _platformPrefab.transform.localScale.x * x + _platformPrefab.transform.localScale.x * 0.5f,
-                            _platformPrefab.transform.localScale.y * 0.5f,
+                            _platformPrefab.transform.localScale.x *  x + _platformPrefab.transform.localScale.x * 0.5f,
+                            _platformPrefab.transform.localScale.y *  0.5f,
                             _platformPrefab.transform.localScale.z * -z - _platformPrefab.transform.localScale.z * 0.5f
                             ),
                         Quaternion.identity) as GameObject;
+
+                    PlatformModel pm = _platforms[x, z].GetComponent<PlatformModel>();
+                    pm.PosXInGrid = (uint)x;
+                    pm.PosZInGrid = (uint)z;
 
                     _platforms[x, z].transform.SetParent(transform, true);
 
@@ -56,7 +60,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                         .Append(" - ").Append(_platforms[x, z].tag).ToString();
 
                     if (z == 0) {
-                        _macrofag = Instantiate(macrofagPrefab,
+                        _macrofag = Instantiate(_macrofagPrefab,
                             new Vector3(
                                 _platforms[x, z].transform.position.x,
                                 _platforms[x, z].transform.position.y + 0.5f,
@@ -64,20 +68,15 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                             Quaternion.identity) as GameObject;
 
                         _macrofag.transform.SetParent(_platforms[x, z].transform, true);
-                    }
 
-                    
+                    }                    
                 }
             }
+
             if (_setPositionAtWorldCenter)
                 SetPositionAtWorldCenter();
 
-            app.view.BattleField.OnBattleFieldSuccessInstantiate("success");
+            app.view.BattleField.OnBattleFieldGenerated();
         }
-
-        private void Start() {
-            Generate();
-        }
-
     }
 }
