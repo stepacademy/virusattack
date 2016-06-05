@@ -23,9 +23,9 @@ namespace VirusAttackSource.Game.Controllers {
                     message
                         .Append("перехватил событие: ")
                         .Append(p_event)
-                        .Append(". Это событие предназначалось для: ")
+                        .Append(". Cобытие предназначено для: ")
                         .Append(p_target.GetType().Name)
-                        .Append(" и не было им обработано.\n")
+                        .Append("\n")
                         .Append("Пересылаемые данные: ");
 
                     foreach (var item in p_data)
