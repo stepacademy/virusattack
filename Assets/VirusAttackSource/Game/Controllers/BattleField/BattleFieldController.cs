@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
-namespace VirusAttackSource.Game.Controllers.BattleField {
+namespace Assets.VirusAttackSource.Game.Controllers.BattleField {
 
     [AddComponentMenu("Virus-Attack Source/Controllers/BattleField/BattleFieldController")]
     public sealed class BattleFieldController : Controller<VirusAttack> {

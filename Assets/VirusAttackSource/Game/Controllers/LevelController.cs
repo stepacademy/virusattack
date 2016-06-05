@@ -1,14 +1,14 @@
 ﻿using System.Text;
 using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
 
-namespace VirusAttackSource.Game.Controllers {
+namespace Assets.VirusAttackSource.Game.Controllers {
 
     using BattleField;
 
     [AddComponentMenu("Virus-Attack Source/Controllers/GameController")]
-    public sealed class GameController : Controller<VirusAttack> {
+    public sealed class LevelController : Controller<VirusAttack> {
 
         private BattleFieldController _battleField;
         public  BattleFieldController BattleField { get { return _battleField = Assert(_battleField); } }
@@ -17,13 +17,13 @@ namespace VirusAttackSource.Game.Controllers {
 
             switch (p_event) {
 
-                default: // for debug
+                default:
 
                     StringBuilder message = new StringBuilder();
                     message
-                        .Append("перехватил событие: ")
+                        .Append(" Событие: ")
                         .Append(p_event)
-                        .Append(". Cобытие предназначено для: ")
+                        .Append(", предназначено для: ")
                         .Append(p_target.GetType().Name)
                         .Append("\n")
                         .Append("Пересылаемые данные: ");

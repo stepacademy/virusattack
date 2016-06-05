@@ -2,7 +2,7 @@
 /// Source: https://bitbucket.org/eduardo_costa/thelab-unity-mvc/overview
 /// Do NOT edit this source code!
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Base class for all Model related classes.

@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Collections.Generic;
 
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     [CustomEditor(typeof(NotificationView), true)]
     public class NotificationViewInspector : Editor {

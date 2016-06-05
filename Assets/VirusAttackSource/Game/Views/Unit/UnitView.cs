@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
 
-namespace VirusAttackSource.Game.Views.Unit {
+namespace Assets.VirusAttackSource.Game.Views.Unit {
 
     [AddComponentMenu("Virus-Attack Source/Views/Unit/UnitView")]
     public sealed class UnitView : View<VirusAttack> {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
-namespace VirusAttackSource.Game.Controllers.Unit {
+namespace Assets.VirusAttackSource.Game.Controllers.Unit {
 
     [AddComponentMenu("Virus-Attack Source/Controllers/Unit/UnitController")]
     public sealed class UnitController : Controller<VirusAttack> {

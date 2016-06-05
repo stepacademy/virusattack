@@ -8,7 +8,7 @@ using System.Collections.Generic;
 #pragma warning disable 0109
 #pragma warning disable 0108
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Base class for collision related classes.

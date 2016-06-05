@@ -7,7 +7,7 @@ using UnityEngine;
 #pragma warning disable 0109
 #pragma warning disable 0108
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Class that implements ColliderView features for any BaseApplication

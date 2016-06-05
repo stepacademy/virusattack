@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 #endif
 
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Extension of the BaseApplication class to handle different types of Model View Controllers.

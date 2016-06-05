@@ -5,7 +5,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Extension of the element class to handle different BaseApplication types.

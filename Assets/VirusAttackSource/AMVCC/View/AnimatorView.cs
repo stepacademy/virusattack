@@ -5,7 +5,7 @@
 using UnityEngine;
 
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Extension of AnimatorView to handle any kind of application.

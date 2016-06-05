@@ -5,7 +5,7 @@
 using UnityEngine;
 
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Class that implements CollisionView features for any BaseApplication.

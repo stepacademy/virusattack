@@ -5,7 +5,7 @@
 using UnityEngine;
 
 
-namespace VirusAttackSource.AMVCC {
+namespace Assets.VirusAttackSource.AMVCC {
 
     /// <summary>
     /// Base class for collision related classes.

@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
 
-namespace VirusAttackSource.Game.Models.Unit {
+namespace Assets.VirusAttackSource.Game.Models.Unit {
+
+    public enum UnitType { Ally, Enemy }
 
     [AddComponentMenu("Virus-Attack Source/Models/Unit/UnitModel")]
     public sealed class UnitModel : Model<VirusAttack> {
 
-        private GameObject unitPrefab;
-
-        public enum Type { Ally, Enemy }
+        private GameObject unitPrefab;        
 
         private string _name;
         private float  _health;
         private float  _damage;
         private float  _attackSpeed;
 
-        public Type    UnitType;
+        public UnitType    Type;
 
         private void Start() {
 

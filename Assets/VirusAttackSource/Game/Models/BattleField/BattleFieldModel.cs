@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using UnityEngine;
-using VirusAttackSource.AMVCC;
+using Assets.VirusAttackSource.AMVCC;
 
-namespace VirusAttackSource.Game.Models.BattleField {
+namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
     [AddComponentMenu("Virus-Attack Source/Models/BattleField/BattleFieldModel")]
     public class BattleFieldModel : Model<VirusAttack> {
@@ -66,11 +66,13 @@ namespace VirusAttackSource.Game.Models.BattleField {
                         _macrofag.transform.SetParent(_platforms[x, z].transform, true);
                     }
 
-                    app.view.BattleField.OnPlatformInstantiate(_platforms[x, z].name);
+                    
                 }
             }
             if (_setPositionAtWorldCenter)
                 SetPositionAtWorldCenter();
+
+            app.view.BattleField.OnBattleFieldSuccessInstantiate("success");
         }
 
         private void Start() {
