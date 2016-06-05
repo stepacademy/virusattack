@@ -6,7 +6,7 @@ namespace Assets.VirusAttackSource.Utilities {
     [Serializable]
     public sealed class PrefabCountPair {
 
-        [SerializeField] private GameObject _prefab;
-        [SerializeField] private int        _count;
+        public GameObject Prefab;
+        public int        Count;
     }
 }

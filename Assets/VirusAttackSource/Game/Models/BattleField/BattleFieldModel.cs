@@ -12,8 +12,8 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
         private GameObject[,] _platforms;
         private GameObject    _macrofag;
         
-        [SerializeField] private int        _countX = 5;
-        [SerializeField] private int        _countZ = 12;
+        public int        CountX = 5;
+        public int        CountZ = 12;
         [SerializeField] private bool       _setPositionAtWorldCenter = true;
 
         [SerializeField] private GameObject _platformPrefab = null;
@@ -21,19 +21,19 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
         private void SetPositionAtWorldCenter() {
 
-            _sizeX =  _platformPrefab.transform.localScale.x * _countX;
+            _sizeX =  _platformPrefab.transform.localScale.x * CountX;
             _sizeY =  _platformPrefab.transform.localScale.y;
-            _sizeZ = -_platformPrefab.transform.localScale.z * _countZ;
+            _sizeZ = -_platformPrefab.transform.localScale.z * CountZ;
 
             transform.position = new Vector3(_sizeX * -0.5f, _sizeY * -0.5f, _sizeZ * -0.5f);
         }
 
         internal void Generate() {
 
-            _platforms = new GameObject[_countX, _countZ];
+            _platforms = new GameObject[CountX, CountZ];
 
-            for (int z = 0; z < _countZ; z++) {
-                for (int x = 0; x < _countX; x++) {
+            for (int z = 0; z < CountZ; z++) {
+                for (int x = 0; x < CountX; x++) {
 
                     _platforms[x, z] = Instantiate(
                         _platformPrefab,
@@ -44,20 +44,20 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                             ),
                         Quaternion.identity) as GameObject;
 
-                    PlatformModel pm = _platforms[x, z].GetComponent<PlatformModel>();
-                    pm.PosXInGrid = (uint)x;
-                    pm.PosZInGrid = (uint)z;
+                    //PlatformModel pm = _platforms[x, z].GetComponent<PlatformModel>();
+                    //pm.PosXInGrid = (uint)x;
+                    //pm.PosZInGrid = (uint)z;
 
                     _platforms[x, z].transform.SetParent(transform, true);
 
-                    if (x == 0 || x == _countX - 1)
+                    if (x == 0 || x == CountX - 1)
                         _platforms[x, z].tag = "Wall";
                     else
                         _platforms[x, z].tag = "Ground";
 
                     _platforms[x, z].name = new StringBuilder("Platform")
-                        .Append('_').Append(z).Append('-').Append(x)
-                        .Append(" - ").Append(_platforms[x, z].tag).ToString();
+                        .Append(" | z:").Append(z).Append(" | x:").Append(x)
+                        .Append(" | tag:").Append(_platforms[x, z].tag).ToString();
 
                     if (z == 0) {
                         _macrofag = Instantiate(_macrofagPrefab,

@@ -22,7 +22,7 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
         }
         private void Update() {
-            app.view.Unit.OnAttack();
+            transform.Translate(0, 0, 1 * Time.deltaTime);
         }
     }
 }
