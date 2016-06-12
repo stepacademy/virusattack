@@ -10,7 +10,7 @@ namespace Assets.VirusAttackSource.Game.Controllers.Unit {
 
             switch (p_event) {
 
-                case "unitName.collision.enter":        // <-- "unitName" from 
+                case "---.collision.enter":             // <-- "Unit Name" from 
                     Log(p_data[0] + " - enter!");       // p_data <-- collision with ...
                     break;
             }

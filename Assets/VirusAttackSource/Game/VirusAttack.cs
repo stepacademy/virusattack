@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game {
@@ -6,15 +7,20 @@ namespace Assets.VirusAttackSource.Game {
     using Models;
     using Views;
     using Controllers;
-
+    
     [AddComponentMenu("Virus-Attack Source/VirusAttack")]
     public sealed class VirusAttack : BaseApplication<LevelModel, LevelView, LevelController> {
 
-        // Use Start() from .base
+        [SerializeField] private Player User;
+        [SerializeField] private List<string> Levels;
+
+        // Be sure to use the previously Start () from .base
+        protected override void Start() {
+            base.Start();
+        }
 
         // Update is called once per frame
         private void Update() { }
-
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
 
@@ -23,8 +24,8 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
         private void SetPositionAtWorldCenter() {
 
-            _sizeX =  _platformGroundPrefab.transform.localScale.x * CountX;
-            _sizeZ =  _platformGroundPrefab.transform.localScale.z * CountZ;
+            _sizeX = _platformGroundPrefab.transform.localScale.x * CountX;
+            _sizeZ = _platformGroundPrefab.transform.localScale.z * CountZ;
 
             transform.position = new Vector3(_sizeX * -0.5f, 0, _sizeZ * 0.5f);
         }
@@ -33,7 +34,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
             return new Vector3(
                 platformPrefab.transform.localScale.x *  platformNumberX + platformPrefab.transform.localScale.x * 0.5f,
-                platformPrefab.transform.localScale.y * 0.5f,
+                platformPrefab.transform.localScale.y *  0.5f,
                 platformPrefab.transform.localScale.z * -platformNumberZ - platformPrefab.transform.localScale.z * 0.5f
                 );
         }
@@ -47,7 +48,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                 Quaternion.identity) as GameObject;
         }
 
-        internal void Generate() {
+        internal void Generate() {            
 
             _platformsGround = new GameObject[CountX - 2, CountZ];
             _platformsWall = new GameObject[2, CountZ];
@@ -69,7 +70,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                     }
 
                     currentPlatform.transform.SetParent(transform, true);
-                    currentPlatform.tag = currentTag;
+                    currentPlatform.tag  = currentTag;
                     currentPlatform.name = new StringBuilder("Platform")
                         .Append(" | z:").Append(z).Append(" | x:").Append(x)
                         .Append(" | tag:").Append(currentPlatform.tag).ToString();

@@ -7,7 +7,7 @@ namespace Assets.VirusAttackSource.Game.Views {
     using BattleField;
     using Unit;
 
-    [AddComponentMenu("Virus-Attack Source/GameView")]
+    [AddComponentMenu("Virus-Attack Source/LevelView")]
     public sealed class LevelView : View<VirusAttack> {
 
         private BattleFieldView _battleField;

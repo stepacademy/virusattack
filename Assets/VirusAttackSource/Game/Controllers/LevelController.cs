@@ -7,7 +7,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
 
     using BattleField;
 
-    [AddComponentMenu("Virus-Attack Source/GameController")]
+    [AddComponentMenu("Virus-Attack Source/LevelController")]
     public sealed class LevelController : Controller<VirusAttack> {
 
         private BattleFieldController _battleField;
@@ -15,26 +15,24 @@ namespace Assets.VirusAttackSource.Game.Controllers {
 
         internal string OnSceneLoad(params object[] p_data) {
 
-            StringBuilder message = new StringBuilder("Scene: ")
+            app.model.GenerateBattleField();
+
+            return new StringBuilder("Scene: ")
                 .Append(p_data[0])
                 .Append(", Id: ")
                 .Append(p_data[1])
-                .Append("\nLoaded!");
-
-            app.model.BattleField.Generate();
-
-            return message.ToString();
+                .Append("\nLoaded!").ToString();
         }
 
         internal string OnSceneStart(params object[] p_data) {
 
-            StringBuilder message = new StringBuilder("Scene: ")
+            app.model.StartEnemiesWaves();
+
+            return new StringBuilder("Scene: ")
                 .Append(p_data[0])
                 .Append(", Id: ")
                 .Append(p_data[1])
-                .Append("\nStarted!");
-
-            return message.ToString();
+                .Append("\nStarted!").ToString();
         }
 
         internal string OnDefault(string p_event, Object p_target, params object[] p_data) {
