@@ -7,10 +7,10 @@ namespace Assets.VirusAttackSource.Game {
 
     [Serializable]
     public sealed class Wave {
-        
-        public List<PrefabCountPair> LevelEnemiesTypes;
+
+        public float DelayBeforeStart;
         public float SpawnInterval;
-        public float WaitForNextWave;
+        public List<PrefabCountPair> LevelEnemiesTypes;
 
     }
 }

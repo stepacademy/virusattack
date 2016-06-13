@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
+
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
@@ -39,13 +39,8 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                 );
         }
 
-        private GameObject InstantiateActual(string platformPrefabTag, int platformNumberX, int platformNumberZ) {
-
-            GameObject currentPrefab = platformPrefabTag == "Ground" ? _platformGroundPrefab : _platformWallPrefab;
-
-            return Instantiate(currentPrefab,
-                GetNewPlatformPosition(currentPrefab, platformNumberX, platformNumberZ),
-                Quaternion.identity) as GameObject;
+        private GameObject GetCurrentPrefab(string platformPrefabTag) {
+            return platformPrefabTag == "Ground" ? _platformGroundPrefab : _platformWallPrefab;
         }
 
         internal void Generate() {            
@@ -58,15 +53,20 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                 for (int x = 0; x < CountX; x++) {
 
                     GameObject currentPlatform;
-                    string     currentTag;
+                    GameObject   currentPrefab;
+                    string          currentTag;
 
                     if (x == 0 || x == CountX - 1) {
-                        currentTag = "Wall";
-                        currentPlatform = _platformsWall[x == 0 ? 0 : 1, z] = InstantiateActual(currentTag, x, z);                        
+                        currentPrefab = GetCurrentPrefab(currentTag = "Wall");
+                        currentPlatform = _platformsWall[x == 0 ? 0 : 1, z] =
+                            app.model.Spawner.SpawnAtPosition(
+                                currentPrefab, GetNewPlatformPosition(currentPrefab, x, z), null, currentTag);
                     }
                     else {
-                        currentTag = "Ground";
-                        currentPlatform = _platformsGround[x - 1, z] = InstantiateActual(currentTag, x, z);
+                        currentPrefab = GetCurrentPrefab(currentTag = "Ground");
+                        currentPlatform = _platformsGround[x - 1, z] =
+                            app.model.Spawner.SpawnAtPosition(
+                                currentPrefab, GetNewPlatformPosition(currentPrefab, x, z), null, currentTag);
                     }
 
                     currentPlatform.transform.SetParent(transform, true);

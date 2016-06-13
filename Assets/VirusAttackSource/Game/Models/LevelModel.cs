@@ -6,6 +6,7 @@ using Assets.VirusAttackSource.AMVCC;
 namespace Assets.VirusAttackSource.Game.Models {
 
     using BattleField;
+    using Spawner;
 
     [AddComponentMenu("Virus-Attack Source/LevelModel")]
     public sealed class LevelModel : Model<VirusAttack> {
@@ -28,15 +29,14 @@ namespace Assets.VirusAttackSource.Game.Models {
             BattleField.Generate();
         }
 
-        internal void NextWave() {
+        internal void StartEnemiesSpawn() {
 
             RemoveAllEmpty();
 
-            if (_waves != null && _waves.Count > 0) {                
-                StartCoroutine_Auto(Spawner.SpawnEnemiesWave(_waves[0]));
-                Log("Next wave start\nSuccess!");
-                _waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
-            }            
+            if (_waves.Count > 0) {
+                Spawner.Waves = _waves;
+                StartCoroutine(Spawner.SpawnNextWave());                
+            }
         }
     }
 }

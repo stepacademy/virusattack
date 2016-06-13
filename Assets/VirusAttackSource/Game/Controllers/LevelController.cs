@@ -32,7 +32,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                 .Append(p_data[1])
                 .Append("\nStarted!"));
 
-            app.model.NextWave();
+            app.model.StartEnemiesSpawn();
         }
 
         internal string OnDefault(string p_event, Object p_target, params object[] p_data) {
@@ -60,11 +60,8 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                 case "scene.start":
                     OnSceneStart(p_data);
                     break;
-                case "wave.spawned":
-                    app.model.NextWave();
-                    break;
                 default:
-                    Log(OnDefault(p_event, p_target, p_data));
+                    // Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
                     break;
             }
 
