@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.VirusAttackSource.Game {
 
@@ -8,8 +7,10 @@ namespace Assets.VirusAttackSource.Game {
 
     [Serializable]
     public sealed class Wave {
-
-        public float SpawnInterval;
+        
         public List<PrefabCountPair> LevelEnemiesTypes;
+        public float SpawnInterval;
+        public float WaitForNextWave;
+
     }
 }

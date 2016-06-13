@@ -1,14 +1,27 @@
-﻿using Assets.VirusAttackSource.AMVCC;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections;
 using UnityEngine;
+using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Models {
 
+    using Utilities;
+
     [AddComponentMenu("Virus-Attack Source/SpawnerModel")]
     public sealed class SpawnerModel : Model<VirusAttack> {
+
+        internal GameObject SpawnAtPosition(GameObject prefab, Vector3 position, string name = null, GameObject parent = null) {
+
+            GameObject spawnedGameObject = Instantiate(prefab, position, Quaternion.identity) as GameObject;
+
+            if (parent != null)
+                spawnedGameObject.transform.SetParent(parent.transform);
+
+            if (name != null)
+                spawnedGameObject.name = name;
+
+            return spawnedGameObject;
+
+        }
 
         internal GameObject SpawnAtGameObject(GameObject prefab, Transform obj, Transform parent = null, string name = null) {
 
@@ -41,22 +54,35 @@ namespace Assets.VirusAttackSource.Game.Models {
             return spawnedGameObject;
         }
 
-        internal GameObject SpawnAtPosition(
-            GameObject prefab,
-            Vector3 position,
-            string name = default(string),
-            GameObject parent = default(GameObject)) {
-            GameObject spawnedGameObject = Instantiate(prefab, position, Quaternion.identity) as GameObject;
+        private IEnumerator SpawnClones(PrefabCountPair clones, float waitTime) {            
 
-            if (parent != null)
-                spawnedGameObject.transform.SetParent(parent.transform);
+            int countX = app.model.BattleField.CountX;
+            int countZ = app.model.BattleField.CountZ;
 
-            if (name != default(string))
-                spawnedGameObject.name = name;
+            while (clones.Count > 0) {
 
-            return spawnedGameObject;
+                yield return new WaitForSeconds(waitTime * clones.Count--);
 
+                int platformIndex  = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
+                Transform platform = app.model.BattleField.transform.GetChild(platformIndex);
+
+                SpawnAtGameObject(clones.Prefab, platform, transform);
+            }
         }
 
+        internal IEnumerator SpawnEnemiesWave(Wave wave) {
+
+            int totalEnemiesInWave = 0;
+            foreach (var item in wave.LevelEnemiesTypes)
+                totalEnemiesInWave += item.Count;
+
+            while (wave.LevelEnemiesTypes.Count > 0) {                
+                StartCoroutine_Auto(SpawnClones(wave.LevelEnemiesTypes[0], wave.SpawnInterval));
+                wave.LevelEnemiesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
+            }
+
+            yield return new WaitForSeconds(totalEnemiesInWave * wave.SpawnInterval + wave.WaitForNextWave);
+            Notify("wave.spawned");
+        }
     }
 }

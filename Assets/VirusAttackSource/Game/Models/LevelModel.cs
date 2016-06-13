@@ -6,7 +6,6 @@ using Assets.VirusAttackSource.AMVCC;
 namespace Assets.VirusAttackSource.Game.Models {
 
     using BattleField;
-    using Enemies;
 
     [AddComponentMenu("Virus-Attack Source/LevelModel")]
     public sealed class LevelModel : Model<VirusAttack> {
@@ -16,9 +15,6 @@ namespace Assets.VirusAttackSource.Game.Models {
 
         private SpawnerModel _spawner;
         public  SpawnerModel Spawner { get { return _spawner = Assert(_spawner); } }
-
-        private EnemiesModel _enemies;
-        public  EnemiesModel Enemies { get { return _enemies = Assert(_enemies); } }
 
         [SerializeField] private List<Wave> _waves;
 
@@ -32,46 +28,15 @@ namespace Assets.VirusAttackSource.Game.Models {
             BattleField.Generate();
         }
 
-        internal void StartEnemiesWaves() {
+        internal void NextWave() {
 
             RemoveAllEmpty();
 
-            int countX = app.model.BattleField.CountX;
-            int countZ = app.model.BattleField.CountZ;
-
-            int currentWave = 0;
-            //int currentEnemyType = 1;
-            //int currentEnemyIndex = 1;
-
-            
-            float lastSpawnTime = 0.0f;
-            if (app.model.Enemies.Enemies == null)
-                app.model.Enemies.Enemies = new List<GameObject>();
-
-            while (_waves[0] != null && _waves[0].LevelEnemiesTypes.Count > 0) {
-                currentWave++;
-                Log("Wave: " + currentWave + "\nStarted!");
-                
-                while (_waves[0].LevelEnemiesTypes[0] != null && _waves[0].LevelEnemiesTypes[0].Count > 0) {
-                    //if (Time.time - lastSpawnTime > _waves[0].SpawnInterval) {
-
-                        int platformIndex  = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
-                        Transform platform = BattleField.transform.GetChild(platformIndex);
-
-                        Enemies.Enemies.Add(
-                            Spawner.SpawnAtGameObject(
-                                _waves[0].LevelEnemiesTypes[0].Prefab, platform, Enemies.transform));
-
-                        _waves[0].LevelEnemiesTypes[0].Count--;
-
-                        lastSpawnTime = Time.time;
-                    //RemoveAllEmpty();
-                    //}
-                    RemoveAllEmpty();
-                }
-                //RemoveAllEmpty();
-            }
-
+            if (_waves != null && _waves.Count > 0) {                
+                StartCoroutine_Auto(Spawner.SpawnEnemiesWave(_waves[0]));
+                Log("Next wave start\nSuccess!");
+                _waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
+            }            
         }
     }
 }
