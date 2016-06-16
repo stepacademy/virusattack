@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.VirusAttackSource.Game {
+namespace Assets.VirusAttackSource.Utilities {
 
     using Utilities;
 

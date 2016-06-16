@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.VirusAttackSource.Game {
+namespace Assets.VirusAttackSource.Utilities {
 
     using Utilities;
 

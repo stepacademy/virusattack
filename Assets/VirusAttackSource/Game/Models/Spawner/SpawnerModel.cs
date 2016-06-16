@@ -26,7 +26,7 @@ namespace Assets.VirusAttackSource.Game.Models.Spawner {
 
             float
                 x = obj.position.x,
-                y = obj.position.y + prefab.transform.localScale.y * 0.5f,
+                y = obj.position.y + obj.transform.localScale.y * 0.5f + prefab.transform.localScale.y * 0.5f,
                 z = obj.position.z;
 
             return SpawnAtPosition(prefab, new Vector3(x, y, z), parent == null ? obj.transform : parent, name);
@@ -59,10 +59,10 @@ namespace Assets.VirusAttackSource.Game.Models.Spawner {
 
         internal IEnumerator SpawnNextWave() {
 
-            Log("\nWait " + Waves[0].DelayBeforeStart + " seconds for start next wave...");
+            Log("Wait " + Waves[0].DelayBeforeStart + " seconds for start next wave...\n");
             yield return new WaitForSeconds(Waves[0].DelayBeforeStart);
 
-            Log("\nWave started!");
+            Log("Wave started!\n");
             Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
             StartCoroutine(WaveSpawn(Waves[0].LevelEnemiesTypes, Waves[0].SpawnInterval));            
         }

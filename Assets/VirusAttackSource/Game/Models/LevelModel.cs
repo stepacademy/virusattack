@@ -7,6 +7,7 @@ namespace Assets.VirusAttackSource.Game.Models {
 
     using BattleField;
     using Spawner;
+    using Utilities;
 
     [AddComponentMenu("Virus-Attack Source/LevelModel")]
     public sealed class LevelModel : Model<VirusAttack> {
@@ -37,6 +38,7 @@ namespace Assets.VirusAttackSource.Game.Models {
                 Spawner.Waves = _waves;
                 StartCoroutine(Spawner.SpawnNextWave());                
             }
+
         }
     }
 }

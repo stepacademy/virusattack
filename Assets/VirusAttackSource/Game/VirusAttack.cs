@@ -7,6 +7,7 @@ namespace Assets.VirusAttackSource.Game {
     using Models;
     using Views;
     using Controllers;
+    using Utilities;
     
     [AddComponentMenu("Virus-Attack Source/VirusAttack")]
     public sealed class VirusAttack : BaseApplication<LevelModel, LevelView, LevelController> {
@@ -22,5 +23,4 @@ namespace Assets.VirusAttackSource.Game {
         // Update is called once per frame
         private void Update() { }
     }
-
 }
