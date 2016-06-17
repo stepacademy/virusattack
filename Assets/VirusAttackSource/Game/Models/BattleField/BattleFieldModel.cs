@@ -8,11 +8,12 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
     [AddComponentMenu("Virus-Attack Source/BattleField/BattleFieldModel")]
     public sealed class BattleFieldModel : Model<VirusAttack> {
 
-        private float _sizeX, _sizeZ;
+        public float SizeX { get; private set; }
+        public float SizeZ { get; private set; }
 
-        private List<List<GameObject>> _platformsWall;
-        private List<List<GameObject>> _platformsGround;        
-        private List<GameObject>       _macrofags;
+        public List<List<GameObject>> PlatformsWall   { get; private set; }
+        public List<List<GameObject>> PlatformsGround { get; private set; }
+        public List<GameObject>       Macrofags       { get; private set; }
 
         public int       CountX = 6;
         public int       CountZ = 14;
@@ -21,6 +22,12 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
         [SerializeField] private GameObject _platformGroundPrefab = null;
         [SerializeField] private GameObject _platformWallPrefab   = null;
         [SerializeField] private GameObject _defendersWallPrefab  = null;        
+
+        private void FixCount() {
+
+            if (CountX < 3) CountX = 3;
+            if (CountZ < 3) CountZ = 3; 
+        }
 
         private Vector3 CalculatePlatformPosition(GameObject platformPrefab, int platformNumberX, int platformNumberZ) {
             return new Vector3(
@@ -38,40 +45,49 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
         private void SetPositionAtWorldCenter() {
 
-            _sizeX = _platformGroundPrefab.transform.localScale.x * CountX;
-            _sizeZ = _platformGroundPrefab.transform.localScale.z * CountZ;
+            SizeX = _platformGroundPrefab.transform.localScale.x * CountX;
+            SizeZ = _platformGroundPrefab.transform.localScale.z * CountZ;
 
-            transform.position = new Vector3(_sizeX * -0.5f, 0, _sizeZ * 0.5f);
+            transform.position = new Vector3(SizeX * -0.5f, 0, SizeZ * 0.5f);
+
+            Log(new StringBuilder()
+                .Append("SizeX: ").Append(SizeX)
+                .Append(", SizeZ: ").Append(SizeZ)
+                .Append(", PosX: ").Append(transform.position.x)
+                .Append(", PosZ: ").Append(transform.position.z)
+                .Append('\n'));
         }
 
         internal void Generate() {
 
-            _platformsWall   = new List<List<GameObject>>(CountZ);
-            _platformsGround = new List<List<GameObject>>(CountZ);
+            FixCount();
+
+            PlatformsWall   = new List<List<GameObject>>(CountZ);
+            PlatformsGround = new List<List<GameObject>>(CountZ);
                         
-            _macrofags = new List<GameObject>(CountX - 2);
+            Macrofags = new List<GameObject>(CountX - 2);
 
             for (int z = 0; z < CountZ; ++z) {
 
-                _platformsWall.Add(new List<GameObject>(2));
-                _platformsGround.Add(new List<GameObject>(CountX - 2));
+                PlatformsWall.Add(new List<GameObject>(2));
+                PlatformsGround.Add(new List<GameObject>(CountX - 2));
 
                 for (int x = 0; x < CountX; ++x) {                
 
                     if (x == 0 || x == CountX - 1) {
-                        _platformsWall[z].Add(app.model.Spawner.SpawnAtPosition(
+                        PlatformsWall[z].Add(app.model.Spawner.SpawnAtPosition(
                             _platformWallPrefab, CalculatePlatformPosition(_platformWallPrefab, x, z),
                             transform, GenerateCurrentPlatformName("Wall", x, z)));
                     }
                     else {
-                        _platformsGround[z].Add(app.model.Spawner.SpawnAtPosition(
+                        PlatformsGround[z].Add(app.model.Spawner.SpawnAtPosition(
                             _platformGroundPrefab, CalculatePlatformPosition(_platformGroundPrefab, x, z),
                             transform, GenerateCurrentPlatformName("Ground", x, z)));
 
                         if (z == 0) {
-                            _macrofags.Add(app.model.Spawner.SpawnAtGameObject(
-                                _defendersWallPrefab, _platformsGround[z][x - 1].transform,
-                                _platformsGround[z][x - 1].transform, "Macrofag"));
+                            Macrofags.Add(app.model.Spawner.SpawnAtGameObject(
+                                _defendersWallPrefab, PlatformsGround[z][x - 1].transform,
+                                PlatformsGround[z][x - 1].transform, "Macrofag"));
                         }
                     }
                 }

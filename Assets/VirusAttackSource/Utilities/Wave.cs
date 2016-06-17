@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace Assets.VirusAttackSource.Utilities {
 
-    using Utilities;
-
     [Serializable]
     public sealed class Wave {
 

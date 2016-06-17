@@ -32,7 +32,7 @@ namespace Assets.VirusAttackSource.Game.Models.Spawner {
             return SpawnAtPosition(prefab, new Vector3(x, y, z), parent == null ? obj.transform : parent, name);
         }
 
-        internal IEnumerator WaveSpawn(List<PrefabCountPair> wave, float waitTime = 1) {
+        internal IEnumerator WaveSpawn(List<PrefabCountPair> wave, float waitTime) {
 
             int countX = app.model.BattleField.CountX;
             int countZ = app.model.BattleField.CountZ;            
