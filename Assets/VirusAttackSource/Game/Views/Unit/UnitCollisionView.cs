@@ -4,7 +4,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Views.Unit {
 
-    [AddComponentMenu("Virus-Attack Source/Unit/UnitCollisionView")]
+    [AddComponentMenu("Virus-Attack/Unit/UnitCollisionView")]
     public sealed class UnitCollisionView : CollisionView<VirusAttack> { }
 
 }

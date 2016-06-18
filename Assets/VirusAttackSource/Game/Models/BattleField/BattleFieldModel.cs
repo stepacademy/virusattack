@@ -5,7 +5,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField {
     
-    [AddComponentMenu("Virus-Attack Source/BattleField/BattleFieldModel")]
+    [AddComponentMenu("Virus-Attack/BattleField/BattleFieldModel")]
     public sealed class BattleFieldModel : Model<VirusAttack> {
 
         public float SizeX { get; private set; }
@@ -17,14 +17,13 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
 
         public int       CountX = 6;
         public int       CountZ = 14;
-        [SerializeField] private bool       _setPositionAtWorldCenter = true;
+        [SerializeField] private bool   _setPositionAtWorldCenter = true;
 
         [SerializeField] private GameObject _platformGroundPrefab = null;
         [SerializeField] private GameObject _platformWallPrefab   = null;
-        [SerializeField] private GameObject _defendersWallPrefab  = null;        
+        [SerializeField] private GameObject _defendersWallPrefab  = null;
 
         private void FixCount() {
-
             if (CountX < 3) CountX = 3;
             if (CountZ < 3) CountZ = 3; 
         }
@@ -49,22 +48,20 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
             SizeZ = _platformGroundPrefab.transform.localScale.z * CountZ;
 
             transform.position = new Vector3(SizeX * -0.5f, 0, SizeZ * 0.5f);
+        }
 
-            Log(new StringBuilder()
-                .Append("SizeX: ").Append(SizeX)
-                .Append(", SizeZ: ").Append(SizeZ)
-                .Append(", PosX: ").Append(transform.position.x)
-                .Append(", PosZ: ").Append(transform.position.z)
-                .Append('\n'));
+        private void FixPosition() {
+            SizeX = _platformGroundPrefab.transform.localScale.x * CountX;
+            transform.position = new Vector3(SizeX * -0.5f, 0, app.model.Base.Ground.transform.localScale.z * -0.5f);
         }
 
         internal void Generate() {
 
             FixCount();
 
-            PlatformsWall   = new List<List<GameObject>>(CountZ);
+            PlatformsWall = new List<List<GameObject>>(CountZ);
             PlatformsGround = new List<List<GameObject>>(CountZ);
-                        
+
             Macrofags = new List<GameObject>(CountX - 2);
 
             for (int z = 0; z < CountZ; ++z) {
@@ -72,7 +69,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                 PlatformsWall.Add(new List<GameObject>(2));
                 PlatformsGround.Add(new List<GameObject>(CountX - 2));
 
-                for (int x = 0; x < CountX; ++x) {                
+                for (int x = 0; x < CountX; ++x) {
 
                     if (x == 0 || x == CountX - 1) {
                         PlatformsWall[z].Add(app.model.Spawner.SpawnAtPosition(
@@ -93,10 +90,11 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
                 }
             }
 
-            if (_setPositionAtWorldCenter)
-                SetPositionAtWorldCenter();
+            //if (_setPositionAtWorldCenter)
+            //    SetPositionAtWorldCenter();
+            FixPosition();
 
-            app.view.BattleField.OnBattleFieldGenerated();
+            app.controller.BattleField.Notify("ground.instantiate");
         }
     }
 }

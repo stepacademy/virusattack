@@ -7,7 +7,7 @@ namespace Assets.VirusAttackSource.Game.Models.Spawner {
 
     using Utilities;
 
-    [AddComponentMenu("Virus-Attack Source/Spawner/SpawnerModel")]
+    [AddComponentMenu("Virus-Attack/Spawner/SpawnerModel")]
     public sealed class SpawnerModel : Model<VirusAttack> {
 
         public List<Wave> Waves { get; set; }

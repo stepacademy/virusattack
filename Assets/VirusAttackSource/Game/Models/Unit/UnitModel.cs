@@ -6,7 +6,7 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
     public enum UnitType { Ally, Enemy }
 
-    [AddComponentMenu("Virus-Attack Source/Unit/UnitModel")]
+    [AddComponentMenu("Virus-Attack/Unit/UnitModel")]
     public sealed class UnitModel : Model<VirusAttack> {                                              // HARDCODE CLASS
 
         private GameObject unitPrefab;        

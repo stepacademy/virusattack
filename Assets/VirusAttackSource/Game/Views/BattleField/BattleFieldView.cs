@@ -4,11 +4,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Views.BattleField {
 
-    [AddComponentMenu("Virus-Attack Source/BattleField/BattleFieldView")]
-    public sealed class BattleFieldView : View<VirusAttack> {
+    [AddComponentMenu("Virus-Attack/BattleField/BattleFieldView")]
+    public sealed class BattleFieldView : View<VirusAttack> { }
 
-        public void OnBattleFieldGenerated() {
-            app.controller.BattleField.Notify("ground.instantiate");
-        }
-    }
 }

@@ -3,7 +3,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Controllers.Spawner {
 
-    [AddComponentMenu("Virus-Attack Source/Spawner/SpawnerController")]
+    [AddComponentMenu("Virus-Attack/Spawner/SpawnerController")]
     public sealed class SpawnerController : Controller<VirusAttack> {
 
         public override void OnNotification(string p_event, Object p_target, params object[] p_data) {

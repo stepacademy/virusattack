@@ -9,7 +9,7 @@ namespace Assets.VirusAttackSource.Game {
     using Controllers;
     using Utilities;
     
-    [AddComponentMenu("Virus-Attack Source/VirusAttack")]
+    [AddComponentMenu("Virus-Attack/VirusAttack")]
     public sealed class VirusAttack : BaseApplication<LevelModel, LevelView, LevelController> {
 
         [SerializeField] private Player User;
