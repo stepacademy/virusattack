@@ -1,100 +1,35 @@
-﻿using System.Text;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField {
-    
+
+    using Base;    
+    using Tracks;
+    using Waves;
+
     [AddComponentMenu("Virus-Attack/BattleField/BattleFieldModel")]
     public sealed class BattleFieldModel : Model<VirusAttack> {
 
-        public float SizeX { get; private set; }
-        public float SizeZ { get; private set; }
+        private BattleFieldInspector _inspector;
 
-        public List<List<GameObject>> PlatformsWall   { get; private set; }
-        public List<List<GameObject>> PlatformsGround { get; private set; }
-        public List<GameObject>       Macrofags       { get; private set; }
+        private BaseModel   _base;
+        private TracksModel _tracks;
+        private WavesModel  _waves;
 
-        public int       CountX = 6;
-        public int       CountZ = 14;
-        [SerializeField] private bool   _setPositionAtWorldCenter = true;
+        internal BaseModel   Base   { get { return _base   = Assert(_base);   } }
+        internal TracksModel Tracks { get { return _tracks = Assert(_tracks); } }
+        internal WavesModel  Waves  { get { return _waves  = Assert(_waves);  } }
 
-        [SerializeField] private GameObject _platformGroundPrefab = null;
-        [SerializeField] private GameObject _platformWallPrefab   = null;
-        [SerializeField] private GameObject _defendersWallPrefab  = null;
-
-        private void FixCount() {
-            if (CountX < 3) CountX = 3;
-            if (CountZ < 3) CountZ = 3; 
-        }
-
-        private Vector3 CalculatePlatformPosition(GameObject platformPrefab, int platformNumberX, int platformNumberZ) {
-            return new Vector3(
-                platformPrefab.transform.localScale.x *  platformNumberX + platformPrefab.transform.localScale.x * 0.5f,
-                platformPrefab.transform.localScale.y *  0.5f,
-                platformPrefab.transform.localScale.z * -platformNumberZ - platformPrefab.transform.localScale.z * 0.5f
-                );
-        }
-
-        private string GenerateCurrentPlatformName(string platformPrefabTag, int platformNumberX, int platformNumberZ) {
-            return new StringBuilder("Platform")
-                        .Append(" | z:").Append(platformNumberZ).Append(" | x:").Append(platformNumberX)
-                        .Append(" | tag:").Append(platformPrefabTag).ToString();
-        }
-
-        private void SetPositionAtWorldCenter() {
-
-            SizeX = _platformGroundPrefab.transform.localScale.x * CountX;
-            SizeZ = _platformGroundPrefab.transform.localScale.z * CountZ;
-
-            transform.position = new Vector3(SizeX * -0.5f, 0, SizeZ * 0.5f);
-        }
-
-        private void FixPosition() {
-            SizeX = _platformGroundPrefab.transform.localScale.x * CountX;
-            transform.position = new Vector3(SizeX * -0.5f, 0, app.model.Base.Ground.transform.localScale.z * -0.5f);
+        internal BattleFieldModel SetPreset(BattleFieldInspector battleFieldInspector) {
+            _inspector = battleFieldInspector;
+            return this;
         }
 
         internal void Generate() {
-
-            FixCount();
-
-            PlatformsWall = new List<List<GameObject>>(CountZ);
-            PlatformsGround = new List<List<GameObject>>(CountZ);
-
-            Macrofags = new List<GameObject>(CountX - 2);
-
-            for (int z = 0; z < CountZ; ++z) {
-
-                PlatformsWall.Add(new List<GameObject>(2));
-                PlatformsGround.Add(new List<GameObject>(CountX - 2));
-
-                for (int x = 0; x < CountX; ++x) {
-
-                    if (x == 0 || x == CountX - 1) {
-                        PlatformsWall[z].Add(app.model.Spawner.SpawnAtPosition(
-                            _platformWallPrefab, CalculatePlatformPosition(_platformWallPrefab, x, z),
-                            transform, GenerateCurrentPlatformName("Wall", x, z)));
-                    }
-                    else {
-                        PlatformsGround[z].Add(app.model.Spawner.SpawnAtPosition(
-                            _platformGroundPrefab, CalculatePlatformPosition(_platformGroundPrefab, x, z),
-                            transform, GenerateCurrentPlatformName("Ground", x, z)));
-
-                        if (z == 0) {
-                            Macrofags.Add(app.model.Spawner.SpawnAtGameObject(
-                                _defendersWallPrefab, PlatformsGround[z][x - 1].transform,
-                                PlatformsGround[z][x - 1].transform, "Macrofag"));
-                        }
-                    }
-                }
-            }
-
-            //if (_setPositionAtWorldCenter)
-            //    SetPositionAtWorldCenter();
-            FixPosition();
-
-            app.controller.BattleField.Notify("ground.instantiate");
+            Base.SetPreset(_inspector.BaseInspector).Generate();
+            Tracks.SetPreset(_inspector.TracksInspector).Generate();
+            Waves.SetPreset(_inspector.WavesInspector).Generate();
         }
     }
 }

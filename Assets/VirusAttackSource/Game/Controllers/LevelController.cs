@@ -15,7 +15,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
 
         internal void OnSceneLoad(params object[] p_data) {
 
-            app.model.GenerateBattleField();
+            app.model.PrepareInfrastructure();
 
             Log(new StringBuilder("Level: ")
                 .Append(p_data[0])
@@ -32,7 +32,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                 .Append(p_data[1])
                 .Append("\nStarted!"));
 
-            app.model.StartEnemiesSpawn();
+            app.model.StartGame();
         }
 
         internal string OnDefault(string p_event, Object p_target, params object[] p_data) {

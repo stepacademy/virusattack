@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.VirusAttackSource.Utilities {
+namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves.Support {
 
     [Serializable]
     public sealed class PrefabCountPair {

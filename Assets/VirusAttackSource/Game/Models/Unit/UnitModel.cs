@@ -21,20 +21,14 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
         private float _positionLimit;
 
         private void Start() {                                                          // Example appeal to properties
-
-            float battleFieldEdgeZ    = app.model.BattleField.SizeZ * 0.5f;
-            float macrofagScaleZ      = app.model.BattleField.Macrofags[0].transform.localScale.z;
-            float currentPrefabScaleZ = transform.localScale.z;
-            _positionLimit = battleFieldEdgeZ - macrofagScaleZ - currentPrefabScaleZ * 0.5f;
+            _positionLimit = -app.model.BattleField.Base.Boss.transform.localScale.x * 0.5f;
         }
 
         private void Update() {                                           // Remove this code for impl. check collision
-
-            if (transform.position.z > _positionLimit) {
+            if (transform.position.z > _positionLimit)
                 Destroy(gameObject);
-                // Log(transform.name + " destroyed at limit: " + _positionLimit + '\n');
-            }
-            transform.Translate(0.0f, 0.0f, 1.0f * Time.deltaTime);
+            transform.Translate(0.0f, 0.0f, 1.5f * Time.deltaTime);
         }
+
     }
 }
