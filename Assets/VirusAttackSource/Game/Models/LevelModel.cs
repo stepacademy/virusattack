@@ -4,7 +4,7 @@ using Assets.VirusAttackSource.AMVCC;
 namespace Assets.VirusAttackSource.Game.Models {
 
     using BattleField;
-
+    
     // Facade for game lvl's
 
     [AddComponentMenu("Virus-Attack/LevelModel")]

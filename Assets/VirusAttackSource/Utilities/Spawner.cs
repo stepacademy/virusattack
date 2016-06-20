@@ -19,7 +19,7 @@ namespace Assets.VirusAttackSource.Utilities {
 
             float
                 x = obj.position.x,
-                y = obj.position.y + obj.transform.localScale.y * 0.5f + prefab.transform.localScale.y * 0.5f,
+                y = obj.position.y + obj.transform.localScale.y * 0.5f + prefab.transform.localScale.y * 0.5f + 0.1f,
                 z = obj.position.z;
 
             return SpawnAtPosition(prefab, new Vector3(x, y, z), parent == null ? obj.transform : parent, name);

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 0205f38bac5195b4bb5fa61055511080
+labels:
+- Enemy
 timeCreated: 1465124104
 licenseType: Free
 NativeFormatImporter:

@@ -61,7 +61,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                     OnSceneStart(p_data);
                     break;
                 default:
-                    // Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
+                    Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
                     break;
             }
 

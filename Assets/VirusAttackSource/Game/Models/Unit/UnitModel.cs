@@ -9,14 +9,11 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
     [AddComponentMenu("Virus-Attack/Unit/UnitModel")]
     public sealed class UnitModel : Model<VirusAttack> {                                              // HARDCODE CLASS
 
-        private GameObject unitPrefab;        
+        [SerializeField] private float  _health      = 100.0f;
+        [SerializeField] private float  _damage      = 20.0f;
+        [SerializeField] private float  _attackSpeed = 1.0f;
 
-        private string _name;
-        private float  _health;
-        private float  _damage;
-        private float  _attackSpeed;
-
-        public UnitType    Type;
+        public int Index { get; set; }
 
         private float _positionLimit;
 
@@ -25,10 +22,19 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
         }
 
         private void Update() {                                           // Remove this code for impl. check collision
-            if (transform.position.z > _positionLimit)
-                Destroy(gameObject);
-            transform.Translate(0.0f, 0.0f, 1.5f * Time.deltaTime);
-        }
 
+            if (transform.position.y > 10.0f || transform.position.y < -10.0f) {
+                Destroy(gameObject);
+            }
+            else if (transform.position.x > 10.0f || transform.position.x < -10.0f) {
+                Destroy(gameObject);
+            }
+            else if (transform.position.z > _positionLimit) {
+                Destroy(gameObject);
+            }            
+            else {
+                transform.Translate(0.0f, 0.0f, 1.5f * Time.deltaTime);
+            }
+        }
     }
 }
