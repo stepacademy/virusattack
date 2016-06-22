@@ -15,7 +15,7 @@ namespace Assets.VirusAttackSource.Game {
         [SerializeField] private Player User;
         [SerializeField] private List<string> Levels;
 
-        // Be sure to use the previously Start () from .base
+        // Be sure to use the previously Start() from 'base.'
         protected override void Start() {
             base.Start();
         }

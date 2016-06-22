@@ -9,5 +9,6 @@ namespace Assets.VirusAttackSource.Game.Views.Unit {
         private void Start() {
             notification = name;
         }
+
     }
 }

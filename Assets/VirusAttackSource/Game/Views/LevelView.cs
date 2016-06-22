@@ -20,7 +20,7 @@ namespace Assets.VirusAttackSource.Game.Views {
         private UnitView             _unit;
         private UnitCollisionView    _unitCollision;
 
-        public  UnitView             Unit             { get { return _unit = Assert(_unit);                         } }      
-        public  UnitCollisionView    UnitCollision    { get { return _unitCollision = Assert(_unitCollision);       } }
+        public  UnitView             Unit             { get { return _unit = Assert(_unit);                   } }      
+        public  UnitCollisionView    UnitCollision    { get { return _unitCollision = Assert(_unitCollision); } }
     }
 }

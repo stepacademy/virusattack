@@ -29,7 +29,11 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField {
         internal void Generate() {
             Base.SetPreset(_inspector.BaseInspector).Generate();
             Tracks.SetPreset(_inspector.TracksInspector).Generate();
-            Waves.SetPreset(_inspector.WavesInspector).Generate();
+            Waves.SetPreset(_inspector.WavesInspector);
+        }
+
+        internal void StartWaves() {
+            Waves.Generate();
         }
     }
 }

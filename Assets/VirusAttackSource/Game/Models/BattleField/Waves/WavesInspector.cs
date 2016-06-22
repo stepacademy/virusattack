@@ -11,6 +11,6 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
         [SerializeField] private List<Wave> _waves = null;
 
-        public List<Wave> Waves { get { return _waves; } set { _waves = value; } }
+        public List<Wave> Waves { get { return _waves; } }
     }
 }

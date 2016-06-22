@@ -1,7 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
-
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
 
@@ -50,7 +48,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
             Boss = spawner.SpawnAtPosition(Inspector.BossPrefab, bossPosition, transform, "Player Boss");
             Boss.transform.localScale = bossScale;
 
-            Log("base.instantiate");
+            Notify("base.instantiate");
         }
     }
 }

@@ -16,22 +16,12 @@ namespace Assets.VirusAttackSource.Game.Controllers {
         internal void OnSceneLoad(params object[] p_data) {
 
             app.model.PrepareInfrastructure();
-
-            Log(new StringBuilder("Level: ")
-                .Append(p_data[0])
-                .Append(", Id: ")
-                .Append(p_data[1])
-                .Append("\nLoaded!"));
+            Log(p_data[0] + ", Id: " + p_data[1] + " > Loaded!\n");
         }
 
         internal void OnSceneStart(params object[] p_data) {
 
-            Log(new StringBuilder("Level: ")
-                .Append(p_data[0])
-                .Append(", Id: ")
-                .Append(p_data[1])
-                .Append("\nStarted!"));
-
+            Log(p_data[0] + ", Id: " + p_data[1] + " > Started!\n");
             app.model.StartGame();
         }
 
@@ -61,7 +51,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                     OnSceneStart(p_data);
                     break;
                 default:
-                    Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
+                    // Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
                     break;
             }
 

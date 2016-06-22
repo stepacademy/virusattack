@@ -19,6 +19,8 @@ namespace Assets.VirusAttackSource.Game.Models {
             BattleField.SetPreset(_battleFieldInspector).Generate();
         }
 
-        internal void StartGame() { }
+        internal void StartGame() {
+            BattleField.StartWaves();
+        }
     }
 }

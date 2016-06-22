@@ -10,9 +10,10 @@ namespace Assets.VirusAttackSource.Game.Controllers.BattleField.Waves {
 
             switch (p_event) {
 
-                case "wave.invokeNext":
+                case "waves.invokeNext":
                     app.model.BattleField.Waves.Generate();
                     break;
+
             }
         }
     }

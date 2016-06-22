@@ -11,8 +11,6 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
     [AddComponentMenu("Virus-Attack/BattleField/Waves/WavesModel")]
     public sealed class WavesModel : Model<VirusAttack> {
 
-        private int _lastEnemyIndex = 0;
-
         internal WavesInspector Inspector { get; private set; }
 
         internal WavesModel SetPreset(WavesInspector wavesInspector) {
@@ -46,10 +44,14 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
                 int currentPrefabIndex = Random.Range(0, wave.Count);
 
                 int platformIndex  = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
-                Transform platform = app.model.BattleField.Tracks.transform.GetChild(platformIndex);
+                int trackIndex     = Random.Range(0, app.model.BattleField.Tracks.Track.Count);
+                Transform platform = app.model.BattleField.Tracks.Track[trackIndex].transform.GetChild(platformIndex);
 
-                spawner.SpawnAtGameObject(
+                GameObject currentEnemy = spawner.SpawnAtGameObject(
                     wave[currentPrefabIndex].Prefab, platform, transform, wave[currentPrefabIndex].Prefab.name);
+
+                currentEnemy.transform.Rotate(app.model.BattleField.Tracks.Track[trackIndex].transform.localEulerAngles);
+
                 wave[currentPrefabIndex].Count--;
                 wave.RemoveAll(x => x.Prefab == null || x.Count == 0);
 
@@ -59,7 +61,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
 
             if (Inspector.Waves.Count > 0)
-                app.controller.BattleField.Waves.Notify("wave.invokeNext");
+                Notify("waves.invokeNext");
         }
 
         internal IEnumerator SpawnNextWave() {
