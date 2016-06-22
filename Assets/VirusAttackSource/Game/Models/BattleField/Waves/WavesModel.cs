@@ -48,20 +48,22 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             int countX = app.model.BattleField.Tracks.Inspector.CellsResolutionWidth;
             int countZ = app.model.BattleField.Tracks.Inspector.CellsResolutionLength;
 
-            Spawner spawner = new Spawner();
+            Spawner            spawner = new Spawner();
+            ProportionalScaler scaler  = new ProportionalScaler();
 
             while (wave.Count > 0) {
 
                 int currentPrefabIndex = Random.Range(0, wave.Count);
+                int platformIndex      = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
+                int trackIndex         = Random.Range(0, app.model.BattleField.Tracks.Count);
 
-                int platformIndex  = Random.Range(countX * countZ - countX + 1, countX * countZ - 1);
-                int trackIndex     = Random.Range(0, app.model.BattleField.Tracks.Track.Count);
-                Transform platform = app.model.BattleField.Tracks.Track[trackIndex].transform.GetChild(platformIndex);
+                Transform platform = app.model.BattleField.Tracks[trackIndex].transform.GetChild(platformIndex);
 
                 GameObject currentEnemy = spawner.SpawnAtGameObject(
                     wave[currentPrefabIndex].Prefab, platform, transform, wave[currentPrefabIndex].Prefab.name);
 
-                currentEnemy.transform.Rotate(app.model.BattleField.Tracks.Track[trackIndex].transform.localEulerAngles);
+                currentEnemy.transform.Rotate(app.model.BattleField.Tracks[trackIndex].transform.localEulerAngles);
+                currentEnemy.transform.localScale = FixEnemyScale(currentEnemy.transform.localScale, platform.localScale);
 
                 wave[currentPrefabIndex].Count--;
                 wave.RemoveAll(x => x.Prefab == null || x.Count == 0);
@@ -73,6 +75,14 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
             if (Inspector.Waves.Count > 0)
                 Notify("waves.invokeNext");
-        }        
+        }
+
+        private Vector3 FixEnemyScale(Vector3 oldEnemyScale, Vector3 platformScale) {
+            return new Vector3(
+                oldEnemyScale.x * platformScale.x,
+                oldEnemyScale.y * platformScale.x,
+                oldEnemyScale.z * platformScale.x);
+        }
+
     }
 }
