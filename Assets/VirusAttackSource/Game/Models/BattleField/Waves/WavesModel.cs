@@ -18,18 +18,29 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             return this;
         }
 
-        private void RemoveAllEmpty() {
-            foreach (var wave in Inspector.Waves)
-                wave.LevelEnemiesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
-            Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
-        }
-
         internal void Generate() {
 
             RemoveAllEmpty();
 
             if (Inspector.Waves.Count > 0)
                 StartCoroutine(SpawnNextWave());
+        }
+
+        private void RemoveAllEmpty() {
+            foreach (var wave in Inspector.Waves)
+                wave.LevelEnemiesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
+            Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
+        }        
+
+        internal IEnumerator SpawnNextWave() {
+
+            Log("Wait " + Inspector.Waves[0].DelayBeforeStart + " seconds for start next wave...\n");
+            yield return new WaitForSeconds(Inspector.Waves[0].DelayBeforeStart);
+
+            Log("Wave started!\n");
+            Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
+            StartCoroutine(WaveSpawn(Inspector.Waves[0].LevelEnemiesTypes, Inspector.Waves[0].SpawnInterval));
+
         }
 
         internal IEnumerator WaveSpawn(List<PrefabCountPair> wave, float waitTime) {
@@ -62,17 +73,6 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
             if (Inspector.Waves.Count > 0)
                 Notify("waves.invokeNext");
-        }
-
-        internal IEnumerator SpawnNextWave() {
-
-            Log("Wait " + Inspector.Waves[0].DelayBeforeStart + " seconds for start next wave...\n");
-            yield return new WaitForSeconds(Inspector.Waves[0].DelayBeforeStart);
-
-            Log("Wave started!\n");
-            Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
-            StartCoroutine(WaveSpawn(Inspector.Waves[0].LevelEnemiesTypes, Inspector.Waves[0].SpawnInterval));
-
-        }
+        }        
     }
 }

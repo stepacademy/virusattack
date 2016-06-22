@@ -18,17 +18,6 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
             return this;
         }
 
-        private Vector3 CalculateProportionalBossScale() {
-
-            Vector3 bossScale       = Inspector.BossPrefab.transform.localScale;
-            float   percentageRatio = Inspector.BossPercentageScaleRatio * 0.01f;
-
-            if (bossScale.x > bossScale.z)
-                return new ProportionalScaler().ScaleAtX(bossScale, Inspector.BaseXZSize * percentageRatio);
-            else
-                return new ProportionalScaler().ScaleAtZ(bossScale, Inspector.BaseXZSize * percentageRatio);
-        }
-
         internal void Generate() {
 
             Spawner spawner = new Spawner();
@@ -50,5 +39,16 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
 
             Notify("base.instantiate");
         }
+
+        private Vector3 CalculateProportionalBossScale() {
+
+            Vector3 bossScale       = Inspector.BossPrefab.transform.localScale;
+            float   percentageRatio = Inspector.BossPercentageScaleRatio * 0.01f;
+
+            if (bossScale.x > bossScale.z)
+                return new ProportionalScaler().ScaleAtX(bossScale, Inspector.BaseXZSize * percentageRatio);
+            else
+                return new ProportionalScaler().ScaleAtZ(bossScale, Inspector.BaseXZSize * percentageRatio);
+        }        
     }
 }

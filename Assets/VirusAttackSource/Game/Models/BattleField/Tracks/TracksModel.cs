@@ -26,7 +26,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
         internal void Generate() {
             PrepareInfrastrucure();
             GenerateTracks();
-            FixTracks();
+            RotateTracks();
         }
 
         private void PrepareInfrastrucure() {
@@ -143,13 +143,14 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
                         .Append(" | tag:").Append(platformPrefabTag).ToString();
         }
 
-        private void FixTracks() {
-            for (int i = 0; i < Track.Count; ++i) {
+        private void RotateTracks() {
+
+            for (int i = 0; i < Track.Count; ++i)
                 Track[i].transform.Rotate(0.0f, i * 90.0f, 0.0f);
-            }
-            if (Inspector.TracksType == TracksType.ITypeLarge) {
+
+            if (Inspector.TracksType == TracksType.ITypeLarge)
                 Track[1].transform.Rotate(0.0f, 90.0f, 0.0f);
-            }
+
         }
     }
 }

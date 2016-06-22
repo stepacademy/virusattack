@@ -13,10 +13,10 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
         public int Index { get; set; }
 
-        private float _positionLimit;
+        // private float _positionLimit;
 
         private void Start() {                                                          // Example appeal to properties
-            _positionLimit = -app.model.BattleField.Base.Boss.transform.localScale.x * 0.5f;
+            // _positionLimit = -app.model.BattleField.Base.Boss.transform.localScale.x * 0.5f;
         }
 
         private void Update() {                                           // Remove this code for impl. check collision

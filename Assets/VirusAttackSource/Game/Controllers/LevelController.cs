@@ -13,6 +13,22 @@ namespace Assets.VirusAttackSource.Game.Controllers {
         private BattleFieldController _battleField;
         public  BattleFieldController BattleField { get { return _battleField = Assert(_battleField); } }
 
+        public override void OnNotification(string p_event, Object p_target, params object[] p_data) {
+
+            switch (p_event) {
+
+                case "scene.load":
+                    OnSceneLoad(p_data);
+                    break;
+                case "scene.start":
+                    OnSceneStart(p_data);
+                    break;
+                default:
+                    // Log(OnDefault(p_event, p_target, p_data)); // Interception all, uncoment for debug...
+                    break;
+            }
+        }
+
         internal void OnSceneLoad(params object[] p_data) {
 
             app.model.PrepareInfrastructure();
@@ -38,23 +54,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
                 message.Append(item + ", ");
 
             return message.ToString();
-        }
 
-        public override void OnNotification(string p_event, Object p_target, params object[] p_data) {
-
-            switch (p_event) {
-
-                case "scene.load":
-                    OnSceneLoad(p_data);
-                    break;
-                case "scene.start":
-                    OnSceneStart(p_data);
-                    break;
-                default:
-                    // Log(OnDefault(p_event, p_target, p_data)); // Spam off, uncoment for debug...
-                    break;
-            }
-
-        }
+        }        
     }
 }
