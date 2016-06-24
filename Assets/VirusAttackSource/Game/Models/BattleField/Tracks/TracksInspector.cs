@@ -15,11 +15,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
 
         [SerializeField] private GameObject _platformGroundPrefab  = null;
         [SerializeField] private GameObject _platformWallPrefab    = null;
-        [SerializeField] private GameObject _defendersWallPrefab   = null;
-
-        private int ResolutionFixer(ref int target) {
-            return target = target > 3 ? target : 3;
-        }
+        [SerializeField] private GameObject _defendersWallPrefab   = null;        
 
         public TracksType TracksType            { get { return _tracksType;                                 } }
         public int        CellsResolutionWidth  { get { return ResolutionFixer(ref _cellsResolutionWidth);  } }
@@ -28,5 +24,9 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
         public GameObject PlatformWallPrefab    { get { return _platformWallPrefab;                         } }
         public GameObject DefendersWallPrefab   { get { return _defendersWallPrefab;                        } }
 
+
+        private int ResolutionFixer(ref int target) {
+            return target = target > 3 ? target : 3;
+        }
     }
 }

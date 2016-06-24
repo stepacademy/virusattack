@@ -4,7 +4,7 @@ using Assets.VirusAttackSource.AMVCC;
 
 
 namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
-
+    
     using Support;
 
     [AddComponentMenu("Virus-Attack/BattleField/Tracks/TracksModel")]
@@ -41,6 +41,9 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
         }
 
         private int GetTracksCount() {
+
+            Notify("tracks.type", Inspector.TracksType);
+
             switch (Inspector.TracksType) {
                 default:
                 case TracksType.ITypeSmall: return 1;
@@ -53,8 +56,9 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
 
         private void GenerateTracks() {
             foreach (GameObject track in _track) {
-                track.GetComponent<TrackModel>().Generate(Inspector); // <-- warning, get component, need fix
+                track.GetComponent<TrackModel>().Generate(Inspector);           // <-- warning, get component, need fix
             }
+            Notify("tracks.instantiate");
         }
 
         private void RotateTracks() {

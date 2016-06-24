@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.VirusAttackSource.AMVCC;
 
-
 namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
 
     using Utilities;
 
+    [AddComponentMenu("Virus-Attack/BattleField/Tracks/TrackModel")]
     public sealed class TrackModel : Model<VirusAttack> {
 
         private float _newPlatformXZScale;
 
         internal List<List<GameObject>> PlatformsWall   { get; private set; }
         internal List<List<GameObject>> PlatformsGround { get; private set; }
-        internal List<GameObject>       Macrofags       { get; private set; }
+        internal List<GameObject>       Defenders       { get; private set; }
 
         internal void Generate(TracksInspector inspector) {
 
@@ -28,7 +28,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
             PlatformsWall   = new List<List<GameObject>>(CountZ);
             PlatformsGround = new List<List<GameObject>>(CountZ);
 
-            Macrofags = new List<GameObject>(CountX - 2);
+            Defenders = new List<GameObject>(CountX - 2);
 
             for (int z = 0; z < CountZ; ++z) {
 
@@ -50,32 +50,16 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
                             transform, GenerateCurrentPlatformName("Ground", x, z)));
 
                         if (z == 0) {
-                            Macrofags.Add(spawner.SpawnAtGameObject(
+                            Defenders.Add(spawner.SpawnAtGameObject(
                                 inspector.DefendersWallPrefab, PlatformsGround[z][x - 1].transform,
-                                PlatformsGround[z][x - 1].transform, "Macrofag"));
+                                PlatformsGround[z][x - 1].transform, "Defender"));
                         }
                     }
                 }
             }
-
-            foreach (var row in PlatformsWall) {
-                foreach (var platform in row) {
-                    platform.transform.localScale =
-                        new Vector3(_newPlatformXZScale, platform.transform.localScale.y, _newPlatformXZScale);
-                }
-            }
-
-            foreach (var row in PlatformsGround) {
-                foreach (var platform in row) {
-                    platform.transform.localScale =
-                        new Vector3(_newPlatformXZScale, platform.transform.localScale.y, _newPlatformXZScale);
-                }
-            }
-
-            foreach (var macrofag in Macrofags) {
-                macrofag.transform.localScale =
-                    new Vector3(0.9f, macrofag.transform.localScale.y, 0.9f);
-            }
+            FixPlatformScale(PlatformsWall);
+            FixPlatformScale(PlatformsGround);
+            FixDefendersScale(Defenders);
         }
 
         private Vector3 CalculateNextPlatformPosition(int indexX, int indexZ, float savedScaleY) {
@@ -91,6 +75,22 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
             return new StringBuilder("Platform")
                         .Append(" | z:").Append(platformNumberZ).Append(" | x:").Append(platformNumberX)
                         .Append(" | tag:").Append(platformPrefabTag).ToString();
+        }
+
+        private void FixPlatformScale(List<List<GameObject>> platforms) {
+            foreach (var row in platforms) {
+                foreach (var platform in row) {
+                    platform.transform.localScale =
+                        new Vector3(_newPlatformXZScale, platform.transform.localScale.y, _newPlatformXZScale);
+                }
+            }
+        }
+
+        private void FixDefendersScale(List<GameObject> defenders) {
+            foreach (var defender in defenders) {
+                defender.transform.localScale =
+                    new Vector3(0.9f, defender.transform.localScale.y, 0.9f);
+            }
         }
     }
 }

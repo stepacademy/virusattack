@@ -30,7 +30,7 @@ namespace Assets.VirusAttackSource.Game.Controllers {
         }
 
         internal void OnSceneLoad(params object[] p_data) {
-
+            app.model.BuildUnityHierarchyTree();
             app.model.PrepareInfrastructure();
             Log(p_data[0] + ", Id: " + p_data[1] + " > Loaded!\n");
         }

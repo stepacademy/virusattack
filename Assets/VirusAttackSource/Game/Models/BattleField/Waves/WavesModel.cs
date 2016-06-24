@@ -48,8 +48,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             int countX = app.model.BattleField.Tracks.Inspector.CellsResolutionWidth;
             int countZ = app.model.BattleField.Tracks.Inspector.CellsResolutionLength;
 
-            Spawner            spawner = new Spawner();
-            ProportionalScaler scaler  = new ProportionalScaler();
+            Spawner spawner = new Spawner();
 
             while (wave.Count > 0) {
 
@@ -83,6 +82,5 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
                 oldEnemyScale.y * platformScale.x,
                 oldEnemyScale.z * platformScale.x);
         }
-
     }
 }

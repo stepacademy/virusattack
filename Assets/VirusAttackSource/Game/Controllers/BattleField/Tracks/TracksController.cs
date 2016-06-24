@@ -10,8 +10,12 @@ namespace Assets.VirusAttackSource.Game.Controllers.BattleField.Tracks {
 
             switch (p_event) {
 
+                case "tracks.type":
+                    Log(p_data[0] + " > Detected!\n");
+                    break;
+
                 case "tracks.instantiate":
-                    Log(p_event + " > Success!\n");
+                    Log("All " + p_event + " > Success!\n");
                     break;
 
             }
