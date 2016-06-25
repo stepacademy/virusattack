@@ -16,11 +16,11 @@ namespace Assets.VirusAttackSource.Game {
         [SerializeField] private List<string> Levels;
 
         // Be sure to use the previously Start() from 'base.'
-        protected override void Start() {
-            base.Start();
-        }
+        //protected override void Start() {
+        //    base.Start();
+        //}
 
         // Update is called once per frame
-        private void Update() { }
+        // private void Update() { }
     }
 }

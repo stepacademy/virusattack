@@ -20,7 +20,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
 
         internal void Generate() {
 
-            Spawner spawner = new Spawner();
+          //  Spawner spawner = new Spawner();
 
             Vector3 groundScale    =
                 new Vector3(Inspector.BaseXZSize, Inspector.GroundPrefab.transform.localScale.y, Inspector.BaseXZSize);
@@ -31,10 +31,10 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Base {
             Vector3 bossPosition   =
                 new Vector3(groundPosition.x, groundScale.y + bossScale.y * 0.5f, groundPosition.z);
 
-            Ground = spawner.SpawnAtPosition(Inspector.GroundPrefab, groundPosition, transform, "Base Ground");
+            Ground = Spawner.SpawnAtPosition(Inspector.GroundPrefab, groundPosition, transform, "Base Ground");
             Ground.transform.localScale = groundScale;
 
-            Boss = spawner.SpawnAtPosition(Inspector.BossPrefab, bossPosition, transform, "Player Boss");
+            Boss = Spawner.SpawnAtPosition(Inspector.BossPrefab, bossPosition, transform, "Player Boss");
             Boss.transform.localScale = bossScale;
 
             Notify("base.instantiate");

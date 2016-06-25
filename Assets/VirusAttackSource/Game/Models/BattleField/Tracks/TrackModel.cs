@@ -23,7 +23,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
             int CountX = inspector.CellsResolutionWidth;
             int CountZ = inspector.CellsResolutionLength;
 
-            Spawner spawner = new Spawner();
+            //Spawner spawner = new Spawner();
 
             PlatformsWall   = new List<List<GameObject>>(CountZ);
             PlatformsGround = new List<List<GameObject>>(CountZ);
@@ -38,19 +38,19 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
                 for (int x = 0; x < CountX; ++x) {
 
                     if (x == 0 || x == CountX - 1) {
-                        PlatformsWall[z].Add(spawner.SpawnAtPosition(
+                        PlatformsWall[z].Add(Spawner.SpawnAtPosition(
                             inspector.PlatformWallPrefab,
                             CalculateNextPlatformPosition(x, z, inspector.PlatformWallPrefab.transform.localScale.y),
                             transform, GenerateCurrentPlatformName("Wall", x, z)));
                     }
                     else {
-                        PlatformsGround[z].Add(spawner.SpawnAtPosition(
+                        PlatformsGround[z].Add(Spawner.SpawnAtPosition(
                             inspector.PlatformGroundPrefab,
                             CalculateNextPlatformPosition(x, z, inspector.PlatformGroundPrefab.transform.localScale.y),
                             transform, GenerateCurrentPlatformName("Ground", x, z)));
 
                         if (z == 0) {
-                            Defenders.Add(spawner.SpawnAtGameObject(
+                            Defenders.Add(Spawner.SpawnAtGameObject(
                                 inspector.DefendersWallPrefab, PlatformsGround[z][x - 1].transform,
                                 PlatformsGround[z][x - 1].transform, "Defender"));
                         }

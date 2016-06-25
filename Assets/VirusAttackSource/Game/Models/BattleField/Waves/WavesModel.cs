@@ -48,7 +48,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             int countX = app.model.BattleField.Tracks.Inspector.CellsResolutionWidth;
             int countZ = app.model.BattleField.Tracks.Inspector.CellsResolutionLength;
 
-            Spawner spawner = new Spawner();
+           // Spawner spawner = new Spawner();
 
             while (wave.Count > 0) {
 
@@ -58,7 +58,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
                 Transform platform = app.model.BattleField.Tracks[trackIndex].transform.GetChild(platformIndex);
 
-                GameObject currentEnemy = spawner.SpawnAtGameObject(
+                GameObject currentEnemy = Spawner.SpawnAtGameObject(
                     wave[currentPrefabIndex].Prefab, platform, transform, wave[currentPrefabIndex].Prefab.name);
 
                 currentEnemy.transform.Rotate(app.model.BattleField.Tracks[trackIndex].transform.localEulerAngles);

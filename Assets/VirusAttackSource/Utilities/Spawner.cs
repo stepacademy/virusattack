@@ -3,9 +3,9 @@
 
 namespace Assets.VirusAttackSource.Utilities {
 
-    public sealed class Spawner {
+    static class Spawner {
 
-        internal GameObject SpawnAtGameObject(GameObject prefab, Transform obj, Transform parent = null, string name = null) {
+        public static GameObject SpawnAtGameObject(GameObject prefab, Transform obj, Transform parent = null, string name = null) {
 
             float
                 x = obj.position.x,
@@ -15,7 +15,7 @@ namespace Assets.VirusAttackSource.Utilities {
             return SpawnAtPosition(prefab, new Vector3(x, y, z), parent == null ? obj.transform : parent, name);
         }
 
-        public GameObject SpawnAtPosition(GameObject prefab, Vector3 position, Transform parent = null, string name = null) {
+        public static GameObject SpawnAtPosition(GameObject prefab, Vector3 position, Transform parent = null, string name = null) {
 
             GameObject spawnedGameObject = Object.Instantiate(prefab, position, Quaternion.identity) as GameObject;
 
