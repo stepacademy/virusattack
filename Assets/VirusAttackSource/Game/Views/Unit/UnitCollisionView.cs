@@ -10,5 +10,11 @@ namespace Assets.VirusAttackSource.Game.Views.Unit {
             notification = name;
         }
 
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Enemy" && this.tag == "Ally")
+                Notify("collision.enter");
+        }
+
     }
 }

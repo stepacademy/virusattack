@@ -14,6 +14,7 @@ namespace Assets.VirusAttackSource.Game.Views {
 
         private BattleFieldView _battleField;
         public  BattleFieldView BattleField { get { return _battleField = Assert(_battleField); } }
+       
 
         // Unit
 

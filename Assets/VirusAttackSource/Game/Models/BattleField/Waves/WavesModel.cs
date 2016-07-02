@@ -7,11 +7,15 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
     using Utilities;
     using Support;
+    using Unit;
 
     [AddComponentMenu("Virus-Attack/BattleField/Waves/WavesModel")]
     public sealed class WavesModel : Model<VirusAttack> {
 
         internal WavesInspector Inspector { get; private set; }
+
+        public List<GameObject> Enemy { get; private set; }
+
 
         internal WavesModel SetPreset(WavesInspector wavesInspector) {
             Inspector = wavesInspector;
@@ -30,6 +34,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
             foreach (var wave in Inspector.Waves)
                 wave.LevelEnemiesTypes.RemoveAll(x => x.Prefab == null || x.Count == 0);
             Inspector.Waves.RemoveAll(x => x.LevelEnemiesTypes.Count == 0);
+            
         }        
 
         internal IEnumerator SpawnNextWave() {
@@ -47,8 +52,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
             int countX = app.model.BattleField.Tracks.Inspector.CellsResolutionWidth;
             int countZ = app.model.BattleField.Tracks.Inspector.CellsResolutionLength;
-
-           // Spawner spawner = new Spawner();
+            Enemy = new List<GameObject>();
 
             while (wave.Count > 0) {
 
@@ -63,6 +67,10 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Waves {
 
                 currentEnemy.transform.Rotate(app.model.BattleField.Tracks[trackIndex].transform.localEulerAngles);
                 currentEnemy.transform.localScale = FixEnemyScale(currentEnemy.transform.localScale, platform.localScale);
+                currentEnemy.GetComponent<UnitModel>().TrackIndex = trackIndex;
+                
+
+                Enemy.Add(currentEnemy);
 
                 wave[currentPrefabIndex].Count--;
                 wave.RemoveAll(x => x.Prefab == null || x.Count == 0);
