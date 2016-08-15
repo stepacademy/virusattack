@@ -6,6 +6,7 @@ using Assets.VirusAttackSource.AMVCC;
 namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
 
     using Utilities;
+    using Unit;
 
     [AddComponentMenu("Virus-Attack/BattleField/Tracks/TrackModel")]
     public sealed class TrackModel : Model<VirusAttack> {
@@ -15,9 +16,11 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
         internal List<List<GameObject>> PlatformsWall   { get; private set; }
         internal List<List<GameObject>> PlatformsGround { get; private set; }
         internal List<GameObject>       Defenders       { get; private set; }
+        public int TrackIndex;
 
-        internal void Generate(TracksInspector inspector) {
+        internal void Generate(TracksInspector inspector, int _TrackIndex) {
 
+            TrackIndex = _TrackIndex;
             _newPlatformXZScale = app.model.BattleField.Base.Inspector.BaseXZSize / inspector.CellsResolutionWidth;
 
             int CountX = inspector.CellsResolutionWidth;
@@ -50,9 +53,12 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
                             transform, GenerateCurrentPlatformName("Ground", x, z)));
 
                         if (z == 0) {
-                            Defenders.Add(Spawner.SpawnAtGameObject(
+
+                            GameObject Defender = Spawner.SpawnAtGameObject(
                                 inspector.DefendersWallPrefab, PlatformsGround[z][x - 1].transform,
-                                PlatformsGround[z][x - 1].transform, "Defender"));
+                                PlatformsGround[z][x - 1].transform, "Defender");
+                            Defender.GetComponent<UnitModel>().TrackIndex = this.TrackIndex;
+                            Defenders.Add(Defender);
                         }
                     }
                 }

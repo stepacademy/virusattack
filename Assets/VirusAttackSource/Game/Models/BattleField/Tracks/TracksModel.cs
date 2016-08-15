@@ -12,7 +12,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
 
         private  List<GameObject> _track;
         internal GameObject       this[int index] { get { return _track[index]; } }
-        internal int              Count           { get { return _track.Count;  } }
+        public int              Count           { get { return _track.Count;  } }
 
         internal TracksInspector  Inspector       { get; private set; }
 
@@ -20,7 +20,7 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
             Inspector = tracksInspector;
             return this;
         }
-
+        public int TrackIndex;
         internal void Generate() {
             PrepareInfrastrucure();
             GenerateTracks();
@@ -55,8 +55,12 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
         }
 
         private void GenerateTracks() {
+
+            int TrackIndex = 0;
             foreach (GameObject track in _track) {
-                track.GetComponent<TrackModel>().Generate(Inspector);           // <-- warning, get component, need fix
+
+                track.GetComponent<TrackModel>().Generate(Inspector, TrackIndex);    // <-- warning, get component, need fix
+                ++TrackIndex;
             }
             Notify("tracks.instantiate");
         }

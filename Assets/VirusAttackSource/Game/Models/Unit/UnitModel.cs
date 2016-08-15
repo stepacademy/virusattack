@@ -15,9 +15,10 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
         [SerializeField] private float _health         = 100.0f;
         [SerializeField] private float _damage         = 20.0f;
         [SerializeField] private float _attackSpeed    = 1.0f;   // <- field is assigned but its value is never used
-        [SerializeField] private float _attackDistance = 15.0f;
+        [SerializeField] private float _attackDistance = 20.0f;
         [SerializeField] private AttackType _attackType;
 
+        private float attackTimer;
         public int  TrackIndex { get; set; }
         public bool IsAttack   { get; set; }        
 
@@ -33,11 +34,19 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
         }
 
         private void Start() {
-            //_attackTimer = _attackSpeed;
+             attackTimer = _attackSpeed;
         }
 
         private void Update() {
 
+            if (attackTimer > 0)
+                attackTimer -= Time.deltaTime;
+            else
+            {
+                IsAttack = true;
+                attackTimer = _attackSpeed;
+            }
+             
             if (tag == "Enemy") {
                 if (transform.position.y > 10.0f || transform.position.y < -10.0f) {
                     Destroy(gameObject);
@@ -57,34 +66,57 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
                 Destroy(gameObject);
             }
 
-            if (IsAttack) {
-                Attack();
-                //IsAttack = false;
-            }
-        }
-
-        void Attack() {
-
-            if (_attackType == AttackType.ContactRadius) {
-                List<GameObject> Enemy = app.model.BattleField.Waves.Enemy;
-
-                for (int i = 0; i < Enemy.Count; i++) {
-
-                    float dist = Vector3.Distance(transform.position, Enemy[i].transform.position);
-
-                    if (dist <= _attackDistance) {
-                        Enemy[i].GetComponent<UnitModel>().Health -= _damage;
-                        Enemy.RemoveAt(i);
+            if (_attackType == AttackType.Straight)
+            {
+                if (IsAttack)
+                {
+                    RaycastHit hit;
+                    Ray ray = new Ray(transform.position, Vector3.up);
+                    if (Physics.Raycast(ray, out hit, _attackDistance))
+                    {
+                        if (tag == "Ally" && hit.collider.tag == "Enemy" || tag == "Enemy" && hit.collider.tag == "Ally")
+                        {
+                            hit.collider.GetComponent<UnitModel>().Health -= _damage;
+                        }
                     }
+
+                    IsAttack = false;
                 }
-                Destroy(gameObject);
+
             }
         }
+                
 
-        void OnCollisionEnter(Collision collision) {
-            if (collision.gameObject.tag == "Enemy" && tag == "Ally")
-                IsAttack = true;
-            Notify("collision.enter");
+        void OnCollisionEnter(Collision collision)
+        {
+
+            if ((collision.gameObject.tag == "Enemy" && tag == "Ally") || collision.gameObject.tag == "Ally" && tag == "Enemy")
+            {
+
+                if (_attackType == AttackType.ContactRadius)
+                {
+                    List<GameObject> Enemy = app.model.BattleField.Waves.Enemy;
+
+                    for (int i = 0; i < Enemy.Count; i++)
+                    {
+
+                        float dist = Vector3.Distance(transform.position, Enemy[i].transform.position);
+
+                        if (dist <= _attackDistance)
+                        {
+                            Enemy[i].GetComponent<UnitModel>().Health -= _damage;
+                            Enemy.RemoveAt(i);
+                        }
+                    }
+                    Destroy(gameObject);
+                }
+
+                else if (_attackType == AttackType.Contact)
+                {
+                    collision.gameObject.GetComponent<UnitModel>().Health -= _damage;
+                }
+                // Notify("collision.enter");
+            }
         }
     }
 }
