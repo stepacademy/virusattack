@@ -12,10 +12,10 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
         // private float      _attackTimer;                      // <- field is assigned but its value is never used
 
-        [SerializeField] private float _health         = 100.0f;
-        [SerializeField] private float _damage         = 20.0f;
-        [SerializeField] private float _attackSpeed    = 1.0f;   // <- field is assigned but its value is never used
-        [SerializeField] private float _attackDistance = 20.0f;
+        [SerializeField] private float _health        /* = 100.0f*/;
+        [SerializeField] private float _damage        /* = 20.0f*/;
+        [SerializeField] private float _attackSpeed    /*= 1.0f*/;   // <- field is assigned but its value is never used
+        [SerializeField] private float _attackDistance /*= 20.0f*/;
         [SerializeField] private AttackType _attackType;
 
         private float attackTimer;
@@ -62,28 +62,28 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
                 }
             }
 
-            if (_health <= 0) {
+            if (Health <= 0) {
                 Destroy(gameObject);
             }
 
-            if (_attackType == AttackType.Straight)
-            {
-                if (IsAttack)
-                {
-                    RaycastHit hit;
-                    Ray ray = new Ray(transform.position, Vector3.up);
-                    if (Physics.Raycast(ray, out hit, _attackDistance))
-                    {
-                        if (tag == "Ally" && hit.collider.tag == "Enemy" || tag == "Enemy" && hit.collider.tag == "Ally")
-                        {
-                            hit.collider.GetComponent<UnitModel>().Health -= _damage;
-                        }
-                    }
+            //if (_attackType == AttackType.Straight)
+            //{
+            //    if (IsAttack)
+            //    {
+            //        RaycastHit hit;
+            //        Ray ray = new Ray(transform.position, Vector3.up);
+            //        if (Physics.Raycast(ray, out hit, _attackDistance))
+            //        {
+            //            if (tag == "Ally" && hit.collider.tag == "Enemy" || tag == "Enemy" && hit.collider.tag == "Ally")
+            //            {
+            //                hit.collider.GetComponent<UnitModel>().Health -= _damage;
+            //            }
+            //        }
 
-                    IsAttack = false;
-                }
+            //        IsAttack = false;
+            //    }
 
-            }
+            //}
         }
                 
 
@@ -95,20 +95,33 @@ namespace Assets.VirusAttackSource.Game.Models.Unit {
 
                 if (_attackType == AttackType.ContactRadius)
                 {
-                    List<GameObject> Enemy = app.model.BattleField.Waves.Enemy;
 
-                    for (int i = 0; i < Enemy.Count; i++)
+
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+                    int i = 0;
+
+                    while (enemies[i])
                     {
-
-                        float dist = Vector3.Distance(transform.position, Enemy[i].transform.position);
-
-                        if (dist <= _attackDistance)
-                        {
-                            Enemy[i].GetComponent<UnitModel>().Health -= _damage;
-                            Enemy.RemoveAt(i);
-                        }
+                        enemies[i].GetComponent<UnitModel>().Health -= _damage;
+                        i++;
                     }
-                    Destroy(gameObject);
+
+                    //List<GameObject> Enemy = app.model.BattleField.Waves.Enemy;
+
+                    //for (int i = 0; i < Enemy.Count; i++)
+                    //{
+
+                    //    float dist = Vector3.Distance(transform.position, Enemy[i].transform.position);
+
+                    //    if (dist <= _attackDistance)
+                    //    {
+                    //        UnitModel um = Enemy[i].GetComponent<UnitModel>();
+                    //        Enemy[i].GetComponent<UnitModel>().Health -= _damage;
+                    //        Enemy.RemoveAt(i);
+                    //    }
+                    //}
+                    //Destroy(gameObject);
                 }
 
                 else if (_attackType == AttackType.Contact)

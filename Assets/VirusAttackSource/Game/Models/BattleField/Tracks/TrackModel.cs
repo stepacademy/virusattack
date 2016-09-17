@@ -57,6 +57,8 @@ namespace Assets.VirusAttackSource.Game.Models.BattleField.Tracks {
                             GameObject Defender = Spawner.SpawnAtGameObject(
                                 inspector.DefendersWallPrefab, PlatformsGround[z][x - 1].transform,
                                 PlatformsGround[z][x - 1].transform, "Defender");
+                            UnitModel um = Defender.GetComponent<UnitModel>();
+
                             Defender.GetComponent<UnitModel>().TrackIndex = this.TrackIndex;
                             Defenders.Add(Defender);
                         }
